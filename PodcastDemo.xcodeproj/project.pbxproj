@@ -10,23 +10,13 @@
 		C0AD03C728218B59009728CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03C628218B59009728CA /* AppDelegate.swift */; };
 		C0AD03C928218B59009728CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03C828218B59009728CA /* SceneDelegate.swift */; };
 		C0AD03CB28218B59009728CA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03CA28218B59009728CA /* ViewController.swift */; };
-		C0AD03CE28218B59009728CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0AD03CC28218B59009728CA /* Main.storyboard */; };
 		C0AD03D028218B5A009728CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0AD03CF28218B5A009728CA /* Assets.xcassets */; };
 		C0AD03D328218B5A009728CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0AD03D128218B5A009728CA /* LaunchScreen.storyboard */; };
 		C0AD03DE28218B5A009728CA /* PodcastDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03DD28218B5A009728CA /* PodcastDemoTests.swift */; };
-		C0AD03E828218B5A009728CA /* PodcastDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03E728218B5A009728CA /* PodcastDemoUITests.swift */; };
-		C0AD03EA28218B5A009728CA /* PodcastDemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03E928218B5A009728CA /* PodcastDemoUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		C0AD03DA28218B5A009728CA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C0AD03BB28218B59009728CA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C0AD03C228218B59009728CA;
-			remoteInfo = PodcastDemo;
-		};
-		C0AD03E428218B5A009728CA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C0AD03BB28218B59009728CA /* Project object */;
 			proxyType = 1;
@@ -40,15 +30,11 @@
 		C0AD03C628218B59009728CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0AD03C828218B59009728CA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C0AD03CA28218B59009728CA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C0AD03CD28218B59009728CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C0AD03CF28218B5A009728CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C0AD03D228218B5A009728CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0AD03D428218B5A009728CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0AD03D928218B5A009728CA /* PodcastDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PodcastDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0AD03DD28218B5A009728CA /* PodcastDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastDemoTests.swift; sourceTree = "<group>"; };
-		C0AD03E328218B5A009728CA /* PodcastDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PodcastDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0AD03E728218B5A009728CA /* PodcastDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastDemoUITests.swift; sourceTree = "<group>"; };
-		C0AD03E928218B5A009728CA /* PodcastDemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastDemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,13 +52,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C0AD03E028218B5A009728CA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -81,7 +60,6 @@
 			children = (
 				C0AD03C528218B59009728CA /* PodcastDemo */,
 				C0AD03DC28218B5A009728CA /* PodcastDemoTests */,
-				C0AD03E628218B5A009728CA /* PodcastDemoUITests */,
 				C0AD03C428218B59009728CA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -91,7 +69,6 @@
 			children = (
 				C0AD03C328218B59009728CA /* PodcastDemo.app */,
 				C0AD03D928218B5A009728CA /* PodcastDemoTests.xctest */,
-				C0AD03E328218B5A009728CA /* PodcastDemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,7 +79,6 @@
 				C0AD03C628218B59009728CA /* AppDelegate.swift */,
 				C0AD03C828218B59009728CA /* SceneDelegate.swift */,
 				C0AD03CA28218B59009728CA /* ViewController.swift */,
-				C0AD03CC28218B59009728CA /* Main.storyboard */,
 				C0AD03CF28218B5A009728CA /* Assets.xcassets */,
 				C0AD03D128218B5A009728CA /* LaunchScreen.storyboard */,
 				C0AD03D428218B5A009728CA /* Info.plist */,
@@ -116,15 +92,6 @@
 				C0AD03DD28218B5A009728CA /* PodcastDemoTests.swift */,
 			);
 			path = PodcastDemoTests;
-			sourceTree = "<group>";
-		};
-		C0AD03E628218B5A009728CA /* PodcastDemoUITests */ = {
-			isa = PBXGroup;
-			children = (
-				C0AD03E728218B5A009728CA /* PodcastDemoUITests.swift */,
-				C0AD03E928218B5A009728CA /* PodcastDemoUITestsLaunchTests.swift */,
-			);
-			path = PodcastDemoUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,24 +132,6 @@
 			productReference = C0AD03D928218B5A009728CA /* PodcastDemoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		C0AD03E228218B5A009728CA /* PodcastDemoUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C0AD03F328218B5A009728CA /* Build configuration list for PBXNativeTarget "PodcastDemoUITests" */;
-			buildPhases = (
-				C0AD03DF28218B5A009728CA /* Sources */,
-				C0AD03E028218B5A009728CA /* Frameworks */,
-				C0AD03E128218B5A009728CA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C0AD03E528218B5A009728CA /* PBXTargetDependency */,
-			);
-			name = PodcastDemoUITests;
-			productName = PodcastDemoUITests;
-			productReference = C0AD03E328218B5A009728CA /* PodcastDemoUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -197,10 +146,6 @@
 						CreatedOnToolsVersion = 13.1;
 					};
 					C0AD03D828218B5A009728CA = {
-						CreatedOnToolsVersion = 13.1;
-						TestTargetID = C0AD03C228218B59009728CA;
-					};
-					C0AD03E228218B5A009728CA = {
 						CreatedOnToolsVersion = 13.1;
 						TestTargetID = C0AD03C228218B59009728CA;
 					};
@@ -221,7 +166,6 @@
 			targets = (
 				C0AD03C228218B59009728CA /* PodcastDemo */,
 				C0AD03D828218B5A009728CA /* PodcastDemoTests */,
-				C0AD03E228218B5A009728CA /* PodcastDemoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -233,18 +177,10 @@
 			files = (
 				C0AD03D328218B5A009728CA /* LaunchScreen.storyboard in Resources */,
 				C0AD03D028218B5A009728CA /* Assets.xcassets in Resources */,
-				C0AD03CE28218B59009728CA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C0AD03D728218B5A009728CA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C0AD03E128218B5A009728CA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -272,15 +208,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C0AD03DF28218B5A009728CA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C0AD03EA28218B5A009728CA /* PodcastDemoUITestsLaunchTests.swift in Sources */,
-				C0AD03E828218B5A009728CA /* PodcastDemoUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -289,22 +216,9 @@
 			target = C0AD03C228218B59009728CA /* PodcastDemo */;
 			targetProxy = C0AD03DA28218B5A009728CA /* PBXContainerItemProxy */;
 		};
-		C0AD03E528218B5A009728CA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C0AD03C228218B59009728CA /* PodcastDemo */;
-			targetProxy = C0AD03E428218B5A009728CA /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		C0AD03CC28218B59009728CA /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C0AD03CD28218B59009728CA /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		C0AD03D128218B5A009728CA /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -444,7 +358,7 @@
 				INFOPLIST_FILE = PodcastDemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -456,7 +370,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -472,7 +386,7 @@
 				INFOPLIST_FILE = PodcastDemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -484,7 +398,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -538,52 +452,6 @@
 			};
 			name = Release;
 		};
-		C0AD03F428218B5A009728CA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TN3V3KVJB9;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.darren.PodcastDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PodcastDemo;
-			};
-			name = Debug;
-		};
-		C0AD03F528218B5A009728CA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TN3V3KVJB9;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.darren.PodcastDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PodcastDemo;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -610,15 +478,6 @@
 			buildConfigurations = (
 				C0AD03F128218B5A009728CA /* Debug */,
 				C0AD03F228218B5A009728CA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C0AD03F328218B5A009728CA /* Build configuration list for PBXNativeTarget "PodcastDemoUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C0AD03F428218B5A009728CA /* Debug */,
-				C0AD03F528218B5A009728CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
