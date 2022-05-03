@@ -14,7 +14,7 @@ class PodcastPlayerViewController: UIViewController {
     private var player: AVPlayer!
     private var playerItem: AVPlayerItem!
     private var playerItemContext = 0
-    var timeObserverToken: Any?
+    private var timeObserverToken: Any?
     
     private let requiredAssetKeys = [
         "playable",
@@ -134,8 +134,10 @@ class PodcastPlayerViewController: UIViewController {
     
     // Apple doc: https://developer.apple.com/documentation/avfoundation/media_playback_and_selection/observing_playback_state
     func prepareToPlay() {
-        let urlString = "https://feeds.soundcloud.com/stream/1062984568-daodutech-podcast-please-answer-daodu-tech.mp3"
-        guard let url = URL(string: urlString) else { return }
+        let url = Bundle.main.url(forResource: "0606", withExtension: "mp3")!
+
+//        let urlString = "https://feeds.soundcloud.com/stream/1062984568-daodutech-podcast-please-answer-daodu-tech.mp3"
+//        guard let url = URL(string: urlString) else { return }
         asset = AVAsset(url: url)
 
         playerItem = AVPlayerItem(asset: asset,
