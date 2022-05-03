@@ -9,6 +9,15 @@ import UIKit
 import AVFoundation
 
 class PodcastPlayerViewController: UIViewController {
+    private var asset: AVAsset!
+    private var player: AVPlayer!
+    private var playerItem: AVPlayerItem!
+    private var playerItemContext = 0
+    private let requiredAssetKeys = [
+        "playable",
+        "hasProtectedContent"
+    ]
+
     private let activityIndicatorView: UIActivityIndicatorView = {
         let aiv = UIActivityIndicatorView(style: .large)
         aiv.backgroundColor = .white
@@ -29,24 +38,65 @@ class PodcastPlayerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configPlayer()
         configBackImageView()
         configControlsView()
         configActivityIndicatorView()
+        
+        prepareToPlay()
         view.backgroundColor = .systemBackground
     }
     
-    private func configPlayer() {
+    // Apple doc: https://developer.apple.com/documentation/avfoundation/media_playback_and_selection/observing_playback_state
+    func prepareToPlay() {
         let urlString = "https://feeds.soundcloud.com/stream/1062984568-daodutech-podcast-please-answer-daodu-tech.mp3"
-        if let url = URL(string: urlString) {
-            let player = AVPlayer(url: url)
-            let playerLayer = AVPlayerLayer(player: player)
-            view.layer.addSublayer(playerLayer)
+        guard let url = URL(string: urlString) else { return }
+        asset = AVAsset(url: url)
+
+        playerItem = AVPlayerItem(asset: asset,
+                                  automaticallyLoadedAssetKeys: requiredAssetKeys)
+
+        playerItem.addObserver(self,
+                               forKeyPath: #keyPath(AVPlayerItem.status),
+                               options: [.old, .new],
+                               context: &playerItemContext)
+        
+        player = AVPlayer(playerItem: playerItem)
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard context == &playerItemContext else {
+            super.observeValue(forKeyPath: keyPath,
+                               of: object,
+                               change: change,
+                               context: context)
+            return
+        }
+        
+        if keyPath == #keyPath(AVPlayerItem.status) {
+            let status: AVPlayerItem.Status
+            if let statusNumber = change?[.newKey] as? NSNumber {
+                status = AVPlayerItem.Status(rawValue: statusNumber.intValue)!
+            } else {
+                status = .unknown
+            }
             
-            player.play()
+            switch status {
+            case .readyToPlay:
+                activityIndicatorView.isHidden = true
+                player.play()
+            case .failed:
+                activityIndicatorView.isHidden = false
+                print("Some error")
+            case .unknown:
+                activityIndicatorView.isHidden = false
+                print("Some error")
+            @unknown default:
+                print("default")
+            }
         }
     }
     
+    // MARK: - UI layout
     private func configControlsView() {
         view.addSubview(controlsContainView)
         controlsContainView.translatesAutoresizingMaskIntoConstraints = false
