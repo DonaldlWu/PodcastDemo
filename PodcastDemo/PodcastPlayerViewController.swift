@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController {
+class PodcastPlayerViewController: UIViewController {
     private let activityIndicatorView: UIActivityIndicatorView = {
         let aiv = UIActivityIndicatorView(style: .large)
         aiv.backgroundColor = .white
@@ -43,7 +43,7 @@ class ViewController: UIViewController {
             let playerLayer = AVPlayerLayer(player: player)
             view.layer.addSublayer(playerLayer)
             
-//            player.play()
+            player.play()
         }
     }
     
