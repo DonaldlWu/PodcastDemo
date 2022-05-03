@@ -14,6 +14,8 @@ class PodcastPlayerViewController: UIViewController {
     private var player: AVPlayer!
     private var playerItem: AVPlayerItem!
     private var playerItemContext = 0
+    var timeObserverToken: Any?
+    
     private let requiredAssetKeys = [
         "playable",
         "hasProtectedContent"
@@ -29,6 +31,21 @@ class PodcastPlayerViewController: UIViewController {
         btn.isHidden = true
         btn.addTarget(self, action: #selector(handlePause), for: .touchUpInside)
         return btn
+    }()
+    
+    let audioLengthLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "00:00"
+        lbl.textColor = .label
+        lbl.textAlignment = .center
+        lbl.isHidden = true
+        return lbl
+    }()
+    
+    let audioSlider: UISlider = {
+        let slider = UISlider()
+        slider.tintColor = .systemGray
+        return slider
     }()
 
     private let activityIndicatorView: UIActivityIndicatorView = {
@@ -55,9 +72,17 @@ class PodcastPlayerViewController: UIViewController {
         configControlsView()
         configActivityIndicatorView()
         configPauseButton()
+        configAudioLengthLabel()
+        configSlider()
         
         prepareToPlay()
         view.backgroundColor = .systemBackground
+        
+        addPeriodicTimeObserver()
+    }
+    
+    deinit {
+        removePeriodicTimeObserver()
     }
     
     @objc private func handlePause() {
@@ -69,6 +94,29 @@ class PodcastPlayerViewController: UIViewController {
             setPausePlayButtonImage()
         }
         isPlaying = !isPlaying
+    }
+    
+    // apple doc: https://developer.apple.com/documentation/avfoundation/media_playback_and_selection/observing_the_playback_time
+    func addPeriodicTimeObserver() {
+        // Notify every half second
+        let timeScale = CMTimeScale(NSEC_PER_SEC)
+        let time = CMTime(seconds: 1, preferredTimescale: timeScale)
+
+        timeObserverToken = player.addPeriodicTimeObserver(forInterval: time,
+                                                          queue: .main) {
+            [weak self] time in
+
+            print(time.durationText)
+            // update player transport UI
+            self?.audioLengthLabel.text = time.durationText
+        }
+    }
+
+    func removePeriodicTimeObserver() {
+        if let timeObserverToken = timeObserverToken {
+            player.removeTimeObserver(timeObserverToken)
+            self.timeObserverToken = nil
+        }
     }
     
     private func setPausePlayButtonImage() {
@@ -117,11 +165,11 @@ class PodcastPlayerViewController: UIViewController {
             } else {
                 status = .unknown
             }
-            
             switch status {
             case .readyToPlay:
                 activityIndicatorView.isHidden = true
                 pausePlayButton.isHidden = false
+                audioLengthLabel.isHidden = false
             case .failed:
                 activityIndicatorView.isHidden = false
                 print("Some error")
@@ -171,6 +219,30 @@ class PodcastPlayerViewController: UIViewController {
         ])
     }
     
+    private func configAudioLengthLabel() {
+        controlsContainView.addSubview(audioLengthLabel)
+        audioLengthLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            audioLengthLabel.centerXAnchor.constraint(equalTo: controlsContainView.centerXAnchor),
+            audioLengthLabel.topAnchor.constraint(equalTo: pausePlayButton.bottomAnchor, constant: 12),
+            audioLengthLabel.heightAnchor.constraint(equalToConstant: 50),
+            audioLengthLabel.widthAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    
+    private func configSlider() {
+        controlsContainView.addSubview(audioSlider)
+        audioSlider.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            audioSlider.topAnchor.constraint(equalTo: controlsContainView.topAnchor, constant: 16),
+            audioSlider.heightAnchor.constraint(equalToConstant: 30),
+            audioSlider.leadingAnchor.constraint(equalTo: controlsContainView.leadingAnchor, constant: 24),
+            audioSlider.trailingAnchor.constraint(equalTo: controlsContainView.trailingAnchor, constant: -24)
+        ])
+    }
+    
     private func configBackImageView() {
         view.addSubview(backImageView)
         backImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -185,3 +257,17 @@ class PodcastPlayerViewController: UIViewController {
 
 }
 
+extension CMTime {
+    var durationText:String {
+        let totalSeconds = CMTimeGetSeconds(self)
+        let hours:Int = Int(totalSeconds / 3600)
+        let minutes:Int = Int(totalSeconds.truncatingRemainder(dividingBy: 3600) / 60)
+        let seconds:Int = Int(totalSeconds.truncatingRemainder(dividingBy: 60))
+        
+        if hours > 0 {
+            return String(format: "%i:%02i:%02i", hours, minutes, seconds)
+        } else {
+            return String(format: "%02i:%02i", minutes, seconds)
+        }
+    }
+}
