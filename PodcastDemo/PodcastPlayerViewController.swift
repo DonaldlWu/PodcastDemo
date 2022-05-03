@@ -9,6 +9,7 @@ import UIKit
 import AVFoundation
 
 class PodcastPlayerViewController: UIViewController {
+    private var isPlaying = false
     private var asset: AVAsset!
     private var player: AVPlayer!
     private var playerItem: AVPlayerItem!
@@ -18,17 +19,15 @@ class PodcastPlayerViewController: UIViewController {
         "hasProtectedContent"
     ]
     
-    lazy var pauseButton: UIButton = {
+    lazy var pausePlayButton: UIButton = {
         let btn = UIButton()
         btn.tintColor = .systemGray
-        let config = UIImage.SymbolConfiguration(pointSize: 32, weight: .medium, scale: .default)
-        let image = UIImage(systemName: "pause", withConfiguration: config)
-        btn.setImage(image, for: .normal)
         btn.layer.borderColor = UIColor.systemGray.cgColor
         btn.layer.borderWidth = 2
         btn.clipsToBounds = true
         btn.layer.cornerRadius = 25
-        btn.isHidden = false
+        btn.isHidden = true
+        btn.addTarget(self, action: #selector(handlePause), for: .touchUpInside)
         return btn
     }()
 
@@ -59,6 +58,30 @@ class PodcastPlayerViewController: UIViewController {
         
         prepareToPlay()
         view.backgroundColor = .systemBackground
+    }
+    
+    @objc private func handlePause() {
+        if isPlaying {
+            player.pause()
+            setPausePlayButtonImage()
+        } else {
+            player.play()
+            setPausePlayButtonImage()
+        }
+        isPlaying = !isPlaying
+    }
+    
+    private func setPausePlayButtonImage() {
+        DispatchQueue.main.async {
+            let config = UIImage.SymbolConfiguration(pointSize: 32, weight: .medium, scale: .default)
+            if self.isPlaying {
+                let image = UIImage(systemName: "pause", withConfiguration: config)
+                self.pausePlayButton.setImage(image, for: .normal)
+            } else {
+                let image = UIImage(systemName: "play", withConfiguration: config)
+                self.pausePlayButton.setImage(image, for: .normal)
+            }
+        }
     }
     
     // Apple doc: https://developer.apple.com/documentation/avfoundation/media_playback_and_selection/observing_playback_state
@@ -98,7 +121,7 @@ class PodcastPlayerViewController: UIViewController {
             switch status {
             case .readyToPlay:
                 activityIndicatorView.isHidden = true
-                pauseButton.isHidden = false
+                pausePlayButton.isHidden = false
             case .failed:
                 activityIndicatorView.isHidden = false
                 print("Some error")
@@ -136,14 +159,15 @@ class PodcastPlayerViewController: UIViewController {
     }
 
     private func configPauseButton() {
-        controlsContainView.addSubview(pauseButton)
-        pauseButton.translatesAutoresizingMaskIntoConstraints = false
+        controlsContainView.addSubview(pausePlayButton)
+        setPausePlayButtonImage()
+        pausePlayButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            pauseButton.centerXAnchor.constraint(equalTo: controlsContainView.centerXAnchor),
-            pauseButton.centerYAnchor.constraint(equalTo: controlsContainView.centerYAnchor),
-            pauseButton.heightAnchor.constraint(equalToConstant: 50),
-            pauseButton.widthAnchor.constraint(equalToConstant: 50)
+            pausePlayButton.centerXAnchor.constraint(equalTo: controlsContainView.centerXAnchor),
+            pausePlayButton.centerYAnchor.constraint(equalTo: controlsContainView.centerYAnchor),
+            pausePlayButton.heightAnchor.constraint(equalToConstant: 50),
+            pausePlayButton.widthAnchor.constraint(equalToConstant: 50)
         ])
     }
     
