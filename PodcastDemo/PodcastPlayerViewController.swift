@@ -42,6 +42,14 @@ class PodcastPlayerViewController: UIViewController {
         return lbl
     }()
     
+    let currentTimeLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "00:00"
+        lbl.textColor = .label
+        lbl.textAlignment = .center
+        return lbl
+    }()
+    
     let audioSlider: UISlider = {
         let slider = UISlider()
         slider.tintColor = .systemGray
@@ -72,8 +80,9 @@ class PodcastPlayerViewController: UIViewController {
         configControlsView()
         configActivityIndicatorView()
         configPauseButton()
-        configAudioLengthLabel()
         configSlider()
+        configAudioLengthLabel()
+        configCurrentTimeLabel()
         
         prepareToPlay()
         view.backgroundColor = .systemBackground
@@ -106,9 +115,8 @@ class PodcastPlayerViewController: UIViewController {
                                                           queue: .main) {
             [weak self] time in
 
-            print(time.durationText)
             // update player transport UI
-            self?.audioLengthLabel.text = time.durationText
+            self?.currentTimeLabel.text = time.durationText
         }
     }
 
@@ -172,10 +180,12 @@ class PodcastPlayerViewController: UIViewController {
                 activityIndicatorView.isHidden = true
                 pausePlayButton.isHidden = false
                 audioLengthLabel.isHidden = false
-            case .failed:
-                activityIndicatorView.isHidden = false
-                print("Some error")
-            case .unknown:
+                if let duration = player.currentItem?.duration.durationText {
+                    DispatchQueue.main.async {
+                        self.audioLengthLabel.text = duration
+                    }
+                }
+            case .failed, .unknown:
                 activityIndicatorView.isHidden = false
                 print("Some error")
             @unknown default:
@@ -226,10 +236,22 @@ class PodcastPlayerViewController: UIViewController {
         audioLengthLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            audioLengthLabel.centerXAnchor.constraint(equalTo: controlsContainView.centerXAnchor),
-            audioLengthLabel.topAnchor.constraint(equalTo: pausePlayButton.bottomAnchor, constant: 12),
+            audioLengthLabel.trailingAnchor.constraint(equalTo: audioSlider.trailingAnchor),
+            audioLengthLabel.bottomAnchor.constraint(equalTo: audioSlider.topAnchor, constant: 4),
             audioLengthLabel.heightAnchor.constraint(equalToConstant: 50),
             audioLengthLabel.widthAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    
+    private func configCurrentTimeLabel() {
+        controlsContainView.addSubview(currentTimeLabel)
+        currentTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            currentTimeLabel.leadingAnchor.constraint(equalTo: audioSlider.leadingAnchor),
+            currentTimeLabel.bottomAnchor.constraint(equalTo: audioSlider.topAnchor, constant: 4),
+            currentTimeLabel.heightAnchor.constraint(equalToConstant: 50),
+            currentTimeLabel.widthAnchor.constraint(equalToConstant: 50)
         ])
     }
     
