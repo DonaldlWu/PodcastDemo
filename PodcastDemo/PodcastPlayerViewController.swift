@@ -17,6 +17,20 @@ class PodcastPlayerViewController: UIViewController {
         "playable",
         "hasProtectedContent"
     ]
+    
+    lazy var pauseButton: UIButton = {
+        let btn = UIButton()
+        btn.tintColor = .systemGray
+        let config = UIImage.SymbolConfiguration(pointSize: 32, weight: .medium, scale: .default)
+        let image = UIImage(systemName: "pause", withConfiguration: config)
+        btn.setImage(image, for: .normal)
+        btn.layer.borderColor = UIColor.systemGray.cgColor
+        btn.layer.borderWidth = 2
+        btn.clipsToBounds = true
+        btn.layer.cornerRadius = 25
+        btn.isHidden = false
+        return btn
+    }()
 
     private let activityIndicatorView: UIActivityIndicatorView = {
         let aiv = UIActivityIndicatorView(style: .large)
@@ -41,6 +55,7 @@ class PodcastPlayerViewController: UIViewController {
         configBackImageView()
         configControlsView()
         configActivityIndicatorView()
+        configPauseButton()
         
         prepareToPlay()
         view.backgroundColor = .systemBackground
@@ -83,7 +98,7 @@ class PodcastPlayerViewController: UIViewController {
             switch status {
             case .readyToPlay:
                 activityIndicatorView.isHidden = true
-                player.play()
+                pauseButton.isHidden = false
             case .failed:
                 activityIndicatorView.isHidden = false
                 print("Some error")
@@ -117,6 +132,18 @@ class PodcastPlayerViewController: UIViewController {
         NSLayoutConstraint.activate([
             activityIndicatorView.centerXAnchor.constraint(equalTo: controlsContainView.centerXAnchor),
             activityIndicatorView.centerYAnchor.constraint(equalTo: controlsContainView.centerYAnchor)
+        ])
+    }
+
+    private func configPauseButton() {
+        controlsContainView.addSubview(pauseButton)
+        pauseButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            pauseButton.centerXAnchor.constraint(equalTo: controlsContainView.centerXAnchor),
+            pauseButton.centerYAnchor.constraint(equalTo: controlsContainView.centerYAnchor),
+            pauseButton.heightAnchor.constraint(equalToConstant: 50),
+            pauseButton.widthAnchor.constraint(equalToConstant: 50)
         ])
     }
     
