@@ -50,9 +50,10 @@ class PodcastPlayerViewController: UIViewController {
         return lbl
     }()
     
-    let audioSlider: UISlider = {
+    lazy var audioSlider: UISlider = {
         let slider = UISlider()
         slider.tintColor = .systemGray
+        slider.addTarget(self, action: #selector(handleSlider), for: .touchUpInside)
         return slider
     }()
 
@@ -92,6 +93,16 @@ class PodcastPlayerViewController: UIViewController {
     
     deinit {
         removePeriodicTimeObserver()
+    }
+    
+    @objc private func handleSlider() {
+        if let duration = player.currentItem?.duration {
+            let totalSecond = CMTimeGetSeconds(duration)
+            let value = Double(audioSlider.value) * totalSecond
+            
+            let seekTime = CMTime(value: CMTimeValue(value), timescale: 1)
+            player.seek(to: seekTime)
+        }
     }
     
     @objc private func handlePause() {
