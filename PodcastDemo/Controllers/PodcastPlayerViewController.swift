@@ -6,21 +6,11 @@
 //
 
 import UIKit
-import AVFoundation
 
 class PodcastPlayerViewController: UIViewController {
-    private var isPlaying = false
-    private var asset: AVAsset!
-    private var player: AVPlayer!
-    private var playerItem: AVPlayerItem!
-    private var playerItemContext = 0
-    private var timeObserverToken: Any?
+    private var player = PlayerObject()
     
-    private let requiredAssetKeys = [
-        "playable",
-        "hasProtectedContent"
-    ]
-    
+    // MARK: - UI element
     lazy var pausePlayButton: UIButton = {
         let btn = UIButton()
         btn.tintColor = .systemGray
@@ -76,8 +66,23 @@ class PodcastPlayerViewController: UIViewController {
         return imageView
     }()
 
+    // MARK: - View did load
     override func viewDidLoad() {
         super.viewDidLoad()
+        configUI()
+        configPlayer()
+    }
+    
+    @objc private func handleSlider() {
+        player.handleSliderWith(with: Double(audioSlider.value))
+    }
+    
+    @objc private func handlePause() {
+        setPausePlayButtonImage(with: player.handlePlayPauseAndReturnIsPlaying())
+    }
+    
+    private func configUI() {
+        view.backgroundColor = .systemBackground
         configBackImageView()
         configControlsView()
         configActivityIndicatorView()
@@ -85,80 +90,43 @@ class PodcastPlayerViewController: UIViewController {
         configSlider()
         configAudioLengthLabel()
         configCurrentTimeLabel()
+    }
+    
+    private func configPlayer() {
+        player.prepareToPlay()
         
-        prepareToPlay()
-        view.backgroundColor = .systemBackground
-    }
-    
-    deinit {
-        removePeriodicTimeObserver()
-    }
-    
-    @objc private func handleSlider() {
-        if let duration = player.currentItem?.duration {
-            let totalSecond = CMTimeGetSeconds(duration)
-            let value = Double(audioSlider.value) * totalSecond
-            
-            let seekTime = CMTime(value: CMTimeValue(value), timescale: 1)
-            player.seek(to: seekTime)
-        }
-    }
-    
-    @objc private func handlePause() {
-        if isPlaying {
-            player.pause()
-            setPausePlayButtonImage()
-        } else {
-            player.play()
-            setPausePlayButtonImage()
-        }
-        isPlaying = !isPlaying
-    }
-    
-    // apple doc: https://developer.apple.com/documentation/avfoundation/media_playback_and_selection/observing_the_playback_time
-    private func addPeriodicTimeObserver() {
-        // Notify every half second
-        let timeScale = CMTimeScale(NSEC_PER_SEC)
-        let time = CMTime(seconds: 1, preferredTimescale: timeScale)
-
-        timeObserverToken = player.addPeriodicTimeObserver(forInterval: time,
-                                                          queue: .main) {
-            [weak self] time in
-
-            // update player transport UI
-            self?.currentTimeLabel.text = time.durationText
-            
-            // Check current ep is over
-            if time == self?.playerItem.duration {
-                self?.resetPlayer()
+        // Binding
+        player.timeOnChange = { [weak self] time in
+            DispatchQueue.main.async {
+                self?.currentTimeLabel.text = time
             }
         }
-    }
-    
-    private func resetPlayer() {
-        // Reset all setting
-        isPlaying = false
-        asset = nil
-        player = nil
-        playerItem = nil
-        playerItemContext = 0
-        prepareToPlay()
-        audioSlider.value = 0
-        currentTimeLabel.text = "00:00"
-        setPausePlayButtonImage()
-    }
-
-    private func removePeriodicTimeObserver() {
-        if let timeObserverToken = timeObserverToken {
-            player.removeTimeObserver(timeObserverToken)
-            self.timeObserverToken = nil
+        player.onPlayerReady = { isReady in
+            self.configUIWhenPlayerReady()
+        }
+        
+        player.onEpEnd = { isEnd in
+            self.audioSlider.value = 0
+            self.resetPlayerUI()
         }
     }
     
-    private func setPausePlayButtonImage() {
+    private func resetPlayerUI() {
+        // Reset all setting
+        player.resetPlayer()
+        
+        player.prepareToPlay()
+        audioSlider.value = 0
+        setPausePlayButtonImage(with: false)
+        DispatchQueue.main.async {
+            self.currentTimeLabel.text = "00:00"
+        }
+    }
+
+    private func setPausePlayButtonImage(with isPlaying: Bool) {
         DispatchQueue.main.async {
             let config = UIImage.SymbolConfiguration(pointSize: 32, weight: .medium, scale: .default)
-            if self.isPlaying {
+            if isPlaying {
                 let image = UIImage(systemName: "pause", withConfiguration: config)
                 self.pausePlayButton.setImage(image, for: .normal)
             } else {
@@ -168,62 +136,13 @@ class PodcastPlayerViewController: UIViewController {
         }
     }
     
-    // Apple doc: https://developer.apple.com/documentation/avfoundation/media_playback_and_selection/observing_playback_state
-    func prepareToPlay() {
-        let url = Bundle.main.url(forResource: "0606", withExtension: "mp3")!
-
-//        let urlString = "https://feeds.soundcloud.com/stream/1062984568-daodutech-podcast-please-answer-daodu-tech.mp3"
-//        guard let url = URL(string: urlString) else { return }
-        asset = AVAsset(url: url)
-
-        playerItem = AVPlayerItem(asset: asset,
-                                  automaticallyLoadedAssetKeys: requiredAssetKeys)
-
-        playerItem.addObserver(self,
-                               forKeyPath: #keyPath(AVPlayerItem.status),
-                               options: [.old, .new],
-                               context: &playerItemContext)
-        player = AVPlayer(playerItem: playerItem)
-        addPeriodicTimeObserver()
-    }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard context == &playerItemContext else {
-            super.observeValue(forKeyPath: keyPath,
-                               of: object,
-                               change: change,
-                               context: context)
-            return
-        }
-        
-        if keyPath == #keyPath(AVPlayerItem.status) {
-            let status: AVPlayerItem.Status
-            if let statusNumber = change?[.newKey] as? NSNumber {
-                status = AVPlayerItem.Status(rawValue: statusNumber.intValue)!
-            } else {
-                status = .unknown
-            }
-            switch status {
-            case .readyToPlay:
-                configUIWhenPlayerReady()
-            case .failed, .unknown:
-                activityIndicatorView.isHidden = false
-                print("Some error")
-            @unknown default:
-                print("default")
-            }
-        }
-    }
-    
     private func configUIWhenPlayerReady() {
         activityIndicatorView.isHidden = true
         pausePlayButton.isHidden = false
         audioLengthLabel.isHidden = false
         currentTimeLabel.isHidden = false
-        if let duration = player.currentItem?.duration.durationText {
-            DispatchQueue.main.async {
-                self.audioLengthLabel.text = duration
-            }
+        DispatchQueue.main.async {
+            self.audioLengthLabel.text = self.player.getDuration()
         }
     }
     
@@ -253,7 +172,7 @@ class PodcastPlayerViewController: UIViewController {
 
     private func configPauseButton() {
         controlsContainView.addSubview(pausePlayButton)
-        setPausePlayButtonImage()
+        setPausePlayButtonImage(with: false)
         pausePlayButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -312,19 +231,4 @@ class PodcastPlayerViewController: UIViewController {
         ])
     }
 
-}
-
-extension CMTime {
-    var durationText:String {
-        let totalSeconds = CMTimeGetSeconds(self)
-        let hours:Int = Int(totalSeconds / 3600)
-        let minutes:Int = Int(totalSeconds.truncatingRemainder(dividingBy: 3600) / 60)
-        let seconds:Int = Int(totalSeconds.truncatingRemainder(dividingBy: 60))
-        
-        if hours > 0 {
-            return String(format: "%i:%02i:%02i", hours, minutes, seconds)
-        } else {
-            return String(format: "%02i:%02i", minutes, seconds)
-        }
-    }
 }

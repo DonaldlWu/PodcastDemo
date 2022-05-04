@@ -14,6 +14,7 @@
 		C0AD03D328218B5A009728CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0AD03D128218B5A009728CA /* LaunchScreen.storyboard */; };
 		C0AD03DE28218B5A009728CA /* PodcastDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03DD28218B5A009728CA /* PodcastDemoTests.swift */; };
 		C0D04D7E2821BFD000764673 /* 0606.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C0D04D7D2821BFD000764673 /* 0606.mp3 */; };
+		C0D04D852822C4BF00764673 /* PlayerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D04D842822C4BF00764673 /* PlayerObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,7 @@
 		C0AD03D928218B5A009728CA /* PodcastDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PodcastDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0AD03DD28218B5A009728CA /* PodcastDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastDemoTests.swift; sourceTree = "<group>"; };
 		C0D04D7D2821BFD000764673 /* 0606.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 0606.mp3; sourceTree = "<group>"; };
+		C0D04D842822C4BF00764673 /* PlayerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,9 +81,10 @@
 		C0AD03C528218B59009728CA /* PodcastDemo */ = {
 			isa = PBXGroup;
 			children = (
+				C0D04D842822C4BF00764673 /* PlayerObject.swift */,
+				C0D04D862822C53A00764673 /* Controllers */,
 				C0AD03C628218B59009728CA /* AppDelegate.swift */,
 				C0AD03C828218B59009728CA /* SceneDelegate.swift */,
-				C0AD03CA28218B59009728CA /* PodcastPlayerViewController.swift */,
 				C0AD03CF28218B5A009728CA /* Assets.xcassets */,
 				C0AD03D128218B5A009728CA /* LaunchScreen.storyboard */,
 				C0AD03D428218B5A009728CA /* Info.plist */,
@@ -95,6 +98,14 @@
 				C0AD03DD28218B5A009728CA /* PodcastDemoTests.swift */,
 			);
 			path = PodcastDemoTests;
+			sourceTree = "<group>";
+		};
+		C0D04D862822C53A00764673 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C0AD03CA28218B59009728CA /* PodcastPlayerViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0AD03CB28218B59009728CA /* PodcastPlayerViewController.swift in Sources */,
+				C0D04D852822C4BF00764673 /* PlayerObject.swift in Sources */,
 				C0AD03C728218B59009728CA /* AppDelegate.swift in Sources */,
 				C0AD03C928218B59009728CA /* SceneDelegate.swift in Sources */,
 			);
