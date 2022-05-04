@@ -33,24 +33,24 @@ class PodcastPlayerViewController: UIViewController {
         return btn
     }()
     
-    let audioLengthLabel: UILabel = {
+    private let audioLengthLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "00:00"
         lbl.textColor = .label
-        lbl.textAlignment = .center
+        lbl.textAlignment = .right
         lbl.isHidden = true
         return lbl
     }()
     
-    let currentTimeLabel: UILabel = {
+    private let currentTimeLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "00:00"
         lbl.textColor = .label
-        lbl.textAlignment = .center
+        lbl.textAlignment = .left
         return lbl
     }()
     
-    lazy var audioSlider: UISlider = {
+    private lazy var audioSlider: UISlider = {
         let slider = UISlider()
         slider.tintColor = .systemGray
         slider.addTarget(self, action: #selector(handleSlider), for: .allEvents)
@@ -250,7 +250,7 @@ class PodcastPlayerViewController: UIViewController {
             audioLengthLabel.trailingAnchor.constraint(equalTo: audioSlider.trailingAnchor),
             audioLengthLabel.bottomAnchor.constraint(equalTo: audioSlider.topAnchor, constant: 4),
             audioLengthLabel.heightAnchor.constraint(equalToConstant: 50),
-            audioLengthLabel.widthAnchor.constraint(equalToConstant: 50)
+            audioLengthLabel.widthAnchor.constraint(equalToConstant: 120)
         ])
     }
     
@@ -262,7 +262,7 @@ class PodcastPlayerViewController: UIViewController {
             currentTimeLabel.leadingAnchor.constraint(equalTo: audioSlider.leadingAnchor),
             currentTimeLabel.bottomAnchor.constraint(equalTo: audioSlider.topAnchor, constant: 4),
             currentTimeLabel.heightAnchor.constraint(equalToConstant: 50),
-            currentTimeLabel.widthAnchor.constraint(equalToConstant: 50)
+            currentTimeLabel.widthAnchor.constraint(equalToConstant: 120)
         ])
     }
     
