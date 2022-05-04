@@ -87,8 +87,6 @@ class PodcastPlayerViewController: UIViewController {
         
         prepareToPlay()
         view.backgroundColor = .systemBackground
-        
-        addPeriodicTimeObserver()
     }
     
     deinit {
@@ -117,7 +115,7 @@ class PodcastPlayerViewController: UIViewController {
     }
     
     // apple doc: https://developer.apple.com/documentation/avfoundation/media_playback_and_selection/observing_the_playback_time
-    func addPeriodicTimeObserver() {
+    private func addPeriodicTimeObserver() {
         // Notify every half second
         let timeScale = CMTimeScale(NSEC_PER_SEC)
         let time = CMTime(seconds: 1, preferredTimescale: timeScale)
@@ -128,10 +126,28 @@ class PodcastPlayerViewController: UIViewController {
 
             // update player transport UI
             self?.currentTimeLabel.text = time.durationText
+            
+            // Check current ep is over
+            if time == self?.playerItem.duration {
+                self?.resetPlayer()
+            }
         }
     }
+    
+    private func resetPlayer() {
+        // Reset all setting
+        isPlaying = false
+        asset = nil
+        player = nil
+        playerItem = nil
+        playerItemContext = 0
+        prepareToPlay()
+        audioSlider.value = 0
+        currentTimeLabel.text = "00:00"
+        setPausePlayButtonImage()
+    }
 
-    func removePeriodicTimeObserver() {
+    private func removePeriodicTimeObserver() {
         if let timeObserverToken = timeObserverToken {
             player.removeTimeObserver(timeObserverToken)
             self.timeObserverToken = nil
@@ -166,8 +182,8 @@ class PodcastPlayerViewController: UIViewController {
                                forKeyPath: #keyPath(AVPlayerItem.status),
                                options: [.old, .new],
                                context: &playerItemContext)
-        
         player = AVPlayer(playerItem: playerItem)
+        addPeriodicTimeObserver()
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
