@@ -47,6 +47,7 @@ class PodcastPlayerViewController: UIViewController {
         lbl.text = "00:00"
         lbl.textColor = .label
         lbl.textAlignment = .left
+        lbl.isHidden = true
         return lbl
     }()
     
@@ -204,19 +205,24 @@ class PodcastPlayerViewController: UIViewController {
             }
             switch status {
             case .readyToPlay:
-                activityIndicatorView.isHidden = true
-                pausePlayButton.isHidden = false
-                audioLengthLabel.isHidden = false
-                if let duration = player.currentItem?.duration.durationText {
-                    DispatchQueue.main.async {
-                        self.audioLengthLabel.text = duration
-                    }
-                }
+                configUIWhenPlayerReady()
             case .failed, .unknown:
                 activityIndicatorView.isHidden = false
                 print("Some error")
             @unknown default:
                 print("default")
+            }
+        }
+    }
+    
+    private func configUIWhenPlayerReady() {
+        activityIndicatorView.isHidden = true
+        pausePlayButton.isHidden = false
+        audioLengthLabel.isHidden = false
+        currentTimeLabel.isHidden = false
+        if let duration = player.currentItem?.duration.durationText {
+            DispatchQueue.main.async {
+                self.audioLengthLabel.text = duration
             }
         }
     }
