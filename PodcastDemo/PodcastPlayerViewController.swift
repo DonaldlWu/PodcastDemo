@@ -53,7 +53,7 @@ class PodcastPlayerViewController: UIViewController {
     lazy var audioSlider: UISlider = {
         let slider = UISlider()
         slider.tintColor = .systemGray
-        slider.addTarget(self, action: #selector(handleSlider), for: .touchUpInside)
+        slider.addTarget(self, action: #selector(handleSlider), for: .allEvents)
         return slider
     }()
 
