@@ -86,7 +86,7 @@ class PodcastPlayerViewController: UIViewController {
         super.viewDidLoad()
         configUILayout()
         configUIContent()
-        configPlayerAndBindingEvent()
+        handlePlayerBindingEvent()
     }
     
     @objc private func handleSlider() {
@@ -117,7 +117,7 @@ class PodcastPlayerViewController: UIViewController {
         }
     }
     
-    private func configPlayerAndBindingEvent() {
+    private func handlePlayerBindingEvent() {
         player.prepareToPlay(urlString: urls[playingCount])
         
         // Binding time change
