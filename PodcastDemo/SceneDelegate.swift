@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func configureWindow(withScene windowScene: UIWindowScene) {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = UINavigationController(rootViewController: PodcastPlayerViewController(viewModel: MockDataModel()))
+        window?.rootViewController = UINavigationController(rootViewController: PodcastDescriptionViewController())
         
         window?.makeKeyAndVisible()
     }
