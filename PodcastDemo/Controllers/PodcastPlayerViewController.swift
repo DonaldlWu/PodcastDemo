@@ -65,6 +65,11 @@ class PodcastPlayerViewController: UIViewController {
         imageView.image = UIImage(systemName: "xmark")
         return imageView
     }()
+    
+    private let descriptionTextView: UITextView = {
+        let view = UITextView()
+        return view
+    }()
 
     // MARK: - View did load
     override func viewDidLoad() {
@@ -90,6 +95,7 @@ class PodcastPlayerViewController: UIViewController {
         configSlider()
         configAudioLengthLabel()
         configCurrentTimeLabel()
+        configDescriptionTextView()
     }
     
     private func configPlayer() {
@@ -145,8 +151,10 @@ class PodcastPlayerViewController: UIViewController {
             self.audioLengthLabel.text = self.player.getDuration()
         }
     }
-    
-    // MARK: - UI layout
+}
+
+// MARK: - UI layout
+extension PodcastPlayerViewController {
     private func configControlsView() {
         view.addSubview(controlsContainView)
         controlsContainView.translatesAutoresizingMaskIntoConstraints = false
@@ -225,9 +233,21 @@ class PodcastPlayerViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             backImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            backImageView.heightAnchor.constraint(equalToConstant: view.frame.width * (9 / 16)),
+            backImageView.heightAnchor.constraint(equalToConstant: view.frame.width * (3 / 4)),
             backImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+    
+    private func configDescriptionTextView() {
+        view.addSubview(descriptionTextView)
+        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            descriptionTextView.topAnchor.constraint(equalTo: backImageView.bottomAnchor, constant: 12),
+            descriptionTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
+            descriptionTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
+            descriptionTextView.bottomAnchor.constraint(equalTo: currentTimeLabel.topAnchor, constant: -12)
         ])
     }
 
