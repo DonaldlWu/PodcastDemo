@@ -8,25 +8,26 @@
 import XCTest
 @testable import PodcastDemo
 
-class PodcastDemoTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+class PodcastPlayerViewControllerTests: XCTestCase {
+    
+    func test_init_configureUILayout() {
+        let sut = makeSUT()
+        sut.loadViewIfNeeded()
+        XCTAssertNotNil(sut.pausePlayButton)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    // MARK: - Helpers
+    private func makeSUT() -> PodcastPlayerViewController {
+        let viewModel = MockDataModel()
+        let player = PlayerObject()
+        let sut = PodcastPlayerViewController(viewModel: viewModel, player: player)
+        trackForMemoryLeaks(sut)
+        return sut
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "Potential memory leak")
         }
     }
 

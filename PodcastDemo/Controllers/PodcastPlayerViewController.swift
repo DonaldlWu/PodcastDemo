@@ -37,7 +37,7 @@ class MockDataModel {
 
 class PodcastPlayerViewController: UIViewController {
     private var viewModel: MockDataModel?
-    private var player = PlayerObject()
+    private var player: PlayerObject?
     
     // MARK: - UI element
     lazy var pausePlayButton: UIButton = {
@@ -52,7 +52,14 @@ class PodcastPlayerViewController: UIViewController {
         btn.addTarget(self, action: #selector(handlePause), for: .touchUpInside)
         return btn
     }()
-    
+
+    let closeButton: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(systemName: "xmark"), for: .normal)
+        btn.addTarget(self, action: #selector(dismissController), for: .touchUpInside)
+        return btn
+    }()
+
     private let audioLengthLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "00:00"
@@ -102,9 +109,10 @@ class PodcastPlayerViewController: UIViewController {
         return view
     }()
     
-    convenience init(viewModel: MockDataModel) {
+    convenience init(viewModel: MockDataModel, player: PlayerObject) {
         self.init()
         self.viewModel = viewModel
+        self.player = player
     }
 
     // MARK: - View did load
@@ -116,13 +124,22 @@ class PodcastPlayerViewController: UIViewController {
     }
     
     @objc private func handleSlider() {
-        player.handleSliderWith(with: Double(audioSlider.value))
+        player?.handleSliderWith(with: Double(audioSlider.value))
     }
     
     @objc private func handlePause() {
+        guard let player = player else {
+            return
+        }
         setPausePlayButtonImage(with: player.handlePlayPauseAndReturnIsPlaying())
     }
-    
+
+    @objc private func dismissController() {
+        player = nil
+        viewModel = nil
+        dismiss(animated: true, completion: nil)
+    }
+
     private func configUILayout() {
         view.backgroundColor = .systemBackground
         configBackImageView()
@@ -133,6 +150,14 @@ class PodcastPlayerViewController: UIViewController {
         configAudioLengthLabel()
         configCurrentTimeLabel()
         configDescriptionTextView()
+        view.addSubview(closeButton)
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            closeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
+            closeButton.heightAnchor.constraint(equalToConstant: 44),
+            closeButton.widthAnchor.constraint(equalToConstant: 44)
+        ])
     }
     
     private func configUIContent() {
@@ -140,15 +165,18 @@ class PodcastPlayerViewController: UIViewController {
             return
         }
         
-        DispatchQueue.main.async {
-            self.descriptionTextView.text = viewModel.returnTitleString()
-            self.backImageView.kf.indicatorType = .activity
-            self.backImageView.kf.setImage(with: URL(string: viewModel.returnImageURLString()))
+        DispatchQueue.main.async { [weak self] in
+            self?.descriptionTextView.text = viewModel.returnTitleString()
+            guard let url = URL(string: viewModel.returnImageURLString()) else {
+                return
+            }
+            self?.backImageView.kf.indicatorType = .activity
+            self?.backImageView.kf.setImage(with: url)
         }
     }
     
     private func handlePlayerBindingEvent() {
-        guard let viewModel = viewModel else {
+        guard let viewModel = viewModel, let player = player else {
             return
         }
         
@@ -162,8 +190,8 @@ class PodcastPlayerViewController: UIViewController {
         }
         
         // Receiving event when Ep is ready to play
-        player.onPlayerReady = { isReady in
-            self.configUIWhenPlayerReady()
+        player.onPlayerReady = { [weak self] isReady in
+            self?.configUIWhenPlayerReady()
         }
         
         // Receiving event when Ep is play over
@@ -186,7 +214,7 @@ class PodcastPlayerViewController: UIViewController {
         audioLengthLabel.isHidden = false
         currentTimeLabel.isHidden = false
         DispatchQueue.main.async {
-            self.audioLengthLabel.text = self.player.getDuration()
+            self.audioLengthLabel.text = self.player?.getDuration()
         }
     }
   
@@ -205,14 +233,14 @@ class PodcastPlayerViewController: UIViewController {
     }
 
     private func setPausePlayButtonImage(with isPlaying: Bool) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
             let config = UIImage.SymbolConfiguration(pointSize: 32, weight: .medium, scale: .default)
             if isPlaying {
                 let image = UIImage(systemName: "pause", withConfiguration: config)
-                self.pausePlayButton.setImage(image, for: .normal)
+                self?.pausePlayButton.setImage(image, for: .normal)
             } else {
                 let image = UIImage(systemName: "play", withConfiguration: config)
-                self.pausePlayButton.setImage(image, for: .normal)
+                self?.pausePlayButton.setImage(image, for: .normal)
             }
         }
     }
@@ -225,13 +253,13 @@ class PodcastPlayerViewController: UIViewController {
         viewModel.updatePlayingCount()
         resetPlayerUI()
         configUIContent()
-        player.resetPlayer()
-        player.prepareToPlay(urlString: viewModel.returnURLString())
+        player?.resetPlayer()
+        player?.prepareToPlay(urlString: viewModel.returnURLString())
     }
     
     private func stopPodcastAndResetUI() {
         resetPlayerUI(hasNewerEp: false)
-        player.handleSliderWith(with: 0)
+        player?.handleSliderWith(with: 0)
     }
     
     private func checkPlayingCount() -> Bool {
