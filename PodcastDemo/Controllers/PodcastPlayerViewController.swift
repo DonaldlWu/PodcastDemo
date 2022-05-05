@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import Kingfisher
 
 class PodcastPlayerViewController: UIViewController {
     private let titles = ["SP. 科技島讀請回答",
                           "Ep.145 英雄旅程最終章"]
     private let urls = ["0606",
                         "0530"]
+    private let imageURLs = ["https://i1.sndcdn.com/artworks-Z7zJRFuDjv63KCHv-5W8whA-t3000x3000.jpg",
+                             "https://i1.sndcdn.com/artworks-Z7zJRFuDjv63KCHv-5W8whA-t3000x3000.jpg"]
     private var playingCount = 1
     private var player = PlayerObject()
     
@@ -109,6 +112,8 @@ class PodcastPlayerViewController: UIViewController {
     private func configUIContent() {
         DispatchQueue.main.async {
             self.descriptionTextView.text = self.titles[self.playingCount]
+            self.backImageView.kf.indicatorType = .activity
+            self.backImageView.kf.setImage(with: URL(string: self.imageURLs[self.playingCount]))
         }
     }
     
@@ -262,9 +267,9 @@ extension PodcastPlayerViewController {
         
         NSLayoutConstraint.activate([
             backImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            backImageView.heightAnchor.constraint(equalToConstant: view.frame.width * (3 / 4)),
-            backImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            backImageView.heightAnchor.constraint(equalToConstant: view.frame.height * (2 / 5)),
+            backImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            backImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
     }
     
