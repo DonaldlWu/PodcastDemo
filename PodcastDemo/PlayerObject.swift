@@ -8,7 +8,6 @@
 import AVFoundation
 
 class PlayerObject: NSObject {
-    private var isPlaying = false
     private var asset: AVAsset!
     private var player: AVPlayer!
     private var playerItem: AVPlayerItem!
@@ -25,8 +24,8 @@ class PlayerObject: NSObject {
     ]
     
     // Apple doc: https://developer.apple.com/documentation/avfoundation/media_playback_and_selection/observing_playback_state
-    func prepareToPlay() {
-        let url = Bundle.main.url(forResource: "0606", withExtension: "mp3")!
+    func prepareToPlay(urlString: String) {
+        let url = Bundle.main.url(forResource: urlString, withExtension: "mp3")!
 
 //        let urlString = "https://feeds.soundcloud.com/stream/1062984568-daodutech-podcast-please-answer-daodu-tech.mp3"
 //        guard let url = URL(string: urlString) else { return }
@@ -58,7 +57,6 @@ class PlayerObject: NSObject {
             // Check current ep is over
             if time == self?.playerItem.duration {
                 self?.onEpEnd?(true)
-                self?.resetPlayer()
             }
         }
     }
@@ -82,6 +80,7 @@ class PlayerObject: NSObject {
             switch status {
             case .readyToPlay:
                 self.onPlayerReady?(true)
+                player.play()
             case .failed, .unknown:
                 print("Some error")
             @unknown default:
@@ -108,13 +107,18 @@ class PlayerObject: NSObject {
     }
     
     func handlePlayPauseAndReturnIsPlaying() -> Bool {
-        if isPlaying {
+        switch player.timeControlStatus {
+        case .playing:
             player.pause()
-        } else {
+            return false
+        case .paused:
             player.play()
+            return true
+        case .waitingToPlayAtSpecifiedRate:
+            return false
+        @unknown default:
+            return false
         }
-        isPlaying = !isPlaying
-        return isPlaying
     }
     
     func resetPlayer() {
@@ -122,14 +126,10 @@ class PlayerObject: NSObject {
         removePeriodicTimeObserver()
         
         // Reset parameter
-        isPlaying = false
         asset = nil
         player = nil
         playerItem = nil
         playerItemContext = 0
-        
-        // Reset player
-        prepareToPlay()
     }
     
     func getDuration() -> String {

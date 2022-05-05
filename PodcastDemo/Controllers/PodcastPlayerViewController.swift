@@ -8,6 +8,11 @@
 import UIKit
 
 class PodcastPlayerViewController: UIViewController {
+    private let titles = ["SP. 科技島讀請回答",
+                          "Ep.145 英雄旅程最終章"]
+    private let urls = ["0606",
+                        "0530"]
+    private var playingCount = 1
     private var player = PlayerObject()
     
     // MARK: - UI element
@@ -19,6 +24,7 @@ class PodcastPlayerViewController: UIViewController {
         btn.clipsToBounds = true
         btn.layer.cornerRadius = 25
         btn.isHidden = true
+        setPausePlayButtonImage(with: true)
         btn.addTarget(self, action: #selector(handlePause), for: .touchUpInside)
         return btn
     }()
@@ -68,14 +74,16 @@ class PodcastPlayerViewController: UIViewController {
     
     private let descriptionTextView: UITextView = {
         let view = UITextView()
+        view.font = .systemFont(ofSize: 16)
         return view
     }()
 
     // MARK: - View did load
     override func viewDidLoad() {
         super.viewDidLoad()
-        configUI()
-        configPlayer()
+        configUILayout()
+        configUIContent()
+        configPlayerAndBindingEvent()
     }
     
     @objc private func handleSlider() {
@@ -86,7 +94,7 @@ class PodcastPlayerViewController: UIViewController {
         setPausePlayButtonImage(with: player.handlePlayPauseAndReturnIsPlaying())
     }
     
-    private func configUI() {
+    private func configUILayout() {
         view.backgroundColor = .systemBackground
         configBackImageView()
         configControlsView()
@@ -98,32 +106,64 @@ class PodcastPlayerViewController: UIViewController {
         configDescriptionTextView()
     }
     
-    private func configPlayer() {
-        player.prepareToPlay()
+    private func configUIContent() {
+        DispatchQueue.main.async {
+            self.descriptionTextView.text = self.titles[self.playingCount]
+        }
+    }
+    
+    private func configPlayerAndBindingEvent() {
+        player.prepareToPlay(urlString: urls[playingCount])
         
-        // Binding
+        // Binding time change
         player.timeOnChange = { [weak self] time in
             DispatchQueue.main.async {
                 self?.currentTimeLabel.text = time
             }
         }
+        
+        // Receiving event when Ep is ready to play
         player.onPlayerReady = { isReady in
             self.configUIWhenPlayerReady()
         }
         
-        player.onEpEnd = { isEnd in
-            self.audioSlider.value = 0
-            self.resetPlayerUI()
+        // Receiving event when Ep is play over
+        player.onEpEnd = { [weak self] isEnd in
+            // If is now newest Ep, reset player and play new Ep
+            if self?.playingCount != 0 {
+                self?.playingCount -= 1
+                self?.resetPlayerUI()
+                self?.configUIContent()
+                self?.player.resetPlayer()
+                self?.player.prepareToPlay(urlString: self?.urls[self?.playingCount ?? 0] ?? "")
+            } else {
+               // All ep played, just reset UI and return player to start point
+                self?.resetPlayerUI(hasNewerEp: false)
+                self?.player.handleSliderWith(with: 0)
+            }
         }
     }
-    
-    private func resetPlayerUI() {
+      
+    // When Ep is downloaded, is ready to go, Update UI status
+    private func configUIWhenPlayerReady() {
+        activityIndicatorView.isHidden = true
+        pausePlayButton.isHidden = false
+        audioLengthLabel.isHidden = false
+        currentTimeLabel.isHidden = false
+        DispatchQueue.main.async {
+            self.audioLengthLabel.text = self.player.getDuration()
+        }
+    }
+  
+    // Reset UI status when receiving end event from player
+    private func resetPlayerUI(hasNewerEp: Bool = true) {
         // Reset all setting
-        player.resetPlayer()
-        
-        player.prepareToPlay()
         audioSlider.value = 0
-        setPausePlayButtonImage(with: false)
+        activityIndicatorView.isHidden = !hasNewerEp
+        pausePlayButton.isHidden = hasNewerEp
+        currentTimeLabel.isHidden = hasNewerEp
+        audioLengthLabel.isHidden = hasNewerEp
+        setPausePlayButtonImage(with: hasNewerEp)
         DispatchQueue.main.async {
             self.currentTimeLabel.text = "00:00"
         }
@@ -139,16 +179,6 @@ class PodcastPlayerViewController: UIViewController {
                 let image = UIImage(systemName: "play", withConfiguration: config)
                 self.pausePlayButton.setImage(image, for: .normal)
             }
-        }
-    }
-    
-    private func configUIWhenPlayerReady() {
-        activityIndicatorView.isHidden = true
-        pausePlayButton.isHidden = false
-        audioLengthLabel.isHidden = false
-        currentTimeLabel.isHidden = false
-        DispatchQueue.main.async {
-            self.audioLengthLabel.text = self.player.getDuration()
         }
     }
 }
@@ -180,7 +210,6 @@ extension PodcastPlayerViewController {
 
     private func configPauseButton() {
         controlsContainView.addSubview(pausePlayButton)
-        setPausePlayButtonImage(with: false)
         pausePlayButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
