@@ -54,10 +54,12 @@ class PodcastDescriptionViewController: UIViewController {
         }
         let player = PlayerObject()
         let controller = PodcastPlayerViewController(viewModel: viewModel, player: player)
+        controller.modalPresentationStyle = .fullScreen
         controller.onDissmiss = { [weak self] result in
             self?.configUIContent()
         }
-        present(controller, animated: true, completion: nil)
+
+        show(controller, sender: self)
     }
     
     private func configUILayout() {

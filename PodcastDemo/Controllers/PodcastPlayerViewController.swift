@@ -60,19 +60,7 @@ class PodcastPlayerViewController: UIViewController {
         btn.addTarget(self, action: #selector(handlePause), for: .touchUpInside)
         return btn
     }()
-
-    private let closeButton: UIButton = {
-        let btn = UIButton()
-        btn.setImage(UIImage(systemName: "xmark"), for: .normal)
-        btn.addTarget(self, action: #selector(dismissController), for: .touchUpInside)
-        btn.tintColor = .systemGray
-        btn.layer.borderColor = UIColor.systemGray.cgColor
-        btn.layer.borderWidth = 2
-        btn.clipsToBounds = true
-        btn.layer.cornerRadius = 22
-        return btn
-    }()
-
+    
     private let audioLengthLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "00:00"
@@ -147,12 +135,8 @@ class PodcastPlayerViewController: UIViewController {
         setPausePlayButtonImage(with: player.handlePlayPauseAndReturnIsPlaying())
     }
 
-    @objc private func dismissController() {
-        player = nil
-        viewModel = nil
-        dismiss(animated: true, completion: {
-            self.onDissmiss?(true)
-        })
+    deinit {
+        onDissmiss?(true)
     }
 
     private func configUILayout() {
@@ -165,7 +149,6 @@ class PodcastPlayerViewController: UIViewController {
         configAudioLengthLabel()
         configCurrentTimeLabel()
         configDescriptionTextView()
-        configCloseButton()
     }
     
     private func configUIContent() {
@@ -373,17 +356,6 @@ extension PodcastPlayerViewController {
             descriptionTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
             descriptionTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
             descriptionTextView.bottomAnchor.constraint(equalTo: currentTimeLabel.topAnchor, constant: -12)
-        ])
-    }
-    
-    private func configCloseButton() {
-        view.addSubview(closeButton)
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
-            closeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
-            closeButton.heightAnchor.constraint(equalToConstant: 44),
-            closeButton.widthAnchor.constraint(equalToConstant: 44)
         ])
     }
 
