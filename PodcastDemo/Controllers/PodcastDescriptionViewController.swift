@@ -37,6 +37,13 @@ class PodcastDescriptionViewController: UIViewController {
         return lbl
     }()
     
+    private let epTitleLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = .systemFont(ofSize: 18)
+        lbl.numberOfLines = 0
+        return lbl
+    }()
+    
     private let descriptionTextView: UITextView = {
         let view = UITextView()
         view.font = .systemFont(ofSize: 16)
@@ -74,11 +81,13 @@ class PodcastDescriptionViewController: UIViewController {
         configBackImageView()
         configDescriptionTextView()
         configPodcastTitleLabel()
+        configEpTitleLabel()
     }
     
     private func configUIContent() {
         DispatchQueue.main.async { [weak self] in
             self?.podcastTitleLabel.text = self?.viewModel?.podcastTitle
+            self?.epTitleLabel.text = self?.viewModel?.returnTitleString()
             self?.descriptionTextView.text = self?.viewModel?.returnDescriptionString()
             guard let url = URL(string: self?.viewModel?.returnImageURLString() ?? "") else {
                 return
@@ -133,6 +142,18 @@ class PodcastDescriptionViewController: UIViewController {
             podcastTitleLabel.leadingAnchor.constraint(equalTo: backImageView.leadingAnchor, constant: 12),
             podcastTitleLabel.trailingAnchor.constraint(equalTo: backImageView.trailingAnchor),
             podcastTitleLabel.heightAnchor.constraint(equalToConstant: 44)
+        ])
+    }
+    
+    private func configEpTitleLabel() {
+        view.addSubview(epTitleLabel)
+        epTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            epTitleLabel.topAnchor.constraint(equalTo: podcastTitleLabel.bottomAnchor, constant: 12),
+            epTitleLabel.leadingAnchor.constraint(equalTo: backImageView.leadingAnchor, constant: 12),
+            epTitleLabel.trailingAnchor.constraint(equalTo: backImageView.trailingAnchor),
+            epTitleLabel.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
 }
