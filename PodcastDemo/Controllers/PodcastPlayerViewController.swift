@@ -16,6 +16,9 @@ class MockDataModel {
     let imageURLs = ["https://i1.sndcdn.com/artworks-Z7zJRFuDjv63KCHv-5W8whA-t3000x3000.jpg",
                      "https://i1.sndcdn.com/artworks-Z7zJRFuDjv63KCHv-5W8whA-t3000x3000.jpg"]
     
+    let descriptions = ["在這個最後的 Q&A 特輯中，兩位主持人回答聽眾對科技島讀與 podcast 最感興趣的問題。題目涵蓋寫作方法、發展特色、身心平衡，以及給迷惘的人的建議。\n\n科技島讀 podcast 歷時 4 年。周欽華要特別感謝盧郁青擔任共同主持人，一起同甘共苦。謝謝房首伊與賴佳翎認真負責，是可靠的後援。謝謝工程師 Joe 總是使命必達，維持系統的穩定。也謝謝聲音製作人陳繹方總是能化腐朽為神奇，把尷尬冷場的錄音剪接得流暢又生動。最後，謝謝聽眾對島讀的支持。\n\nSP：科技島讀周欽華與敏迪一起談寫作 — 敏迪選讀\nhttps://reurl.cc/NrZbRQ\n\n周欽華常用的資訊來源與受肯定的台灣個人媒體\n\n即時科技新聞\n* 科技新報 \n* iThome \n* 數位時代 \n* INSIDE \n* iKnow 科技產業資訊室 \n\n外國即時新聞\n* Techmeme \n* Hacker News \n* 彭博（Bloomberg）\n\n個人訂閱媒體\n* Stratechery（Ben Thompson）\n* Benedict Evans \n* The Diff(Byrne Hobart）\n* Dancoland（Alex Danco）\n* MatthewBall.vc\n\n台灣個人訂閱媒體\n* Manny Li 曼報（李易鴻）\n* 科技巨頭解碼（洪岳農）\n* 王伯達觀點 \n* 區塊勢（許明恩）\n* 葉郎：異聞筆記\n\nPodcast\n* The Tim Ferriss Show \n* How I Built This with Guy Raz \n* a16z \n* 馬力歐陪你喝一杯 \n* 寶博朋友說 \n* 百靈果 News \n* Gooaye 股癌 \n* 敏迪選讀",
+                       "科技島讀 4 年旅程的終章，是一篇角色扮演遊戲（Role-playing game，RPG）。主角一開始努力的培養獨特的能力，奮力不被電腦替代。接著他走上創業之路。其創辦的企業一路成長，掙脫價值鏈的限制，建立護城河，最終成為壟斷性的巨頭。此時國家開始打擊他的勢力，而人民的反彈也越來越高。他也突然發現自己享受了科技的果實，卻似乎也失去了最珍貴的東西。\n\n文章：小華不平凡的科技旅程\nhttps://bit.ly/34vsqcV"]
+    
     var playingCount = 1
     
     func updatePlayingCount() {
@@ -33,11 +36,16 @@ class MockDataModel {
     func returnTitleString() -> String {
         return titles[playingCount]
     }
+    
+    func returnDescriptionString() -> String {
+        return descriptions[playingCount]
+    }
 }
 
 class PodcastPlayerViewController: UIViewController {
     private var viewModel: MockDataModel?
     private var player: PlayerObject?
+    var onDissmiss: ((Bool) -> Void)?
     
     // MARK: - UI element
     lazy var pausePlayButton: UIButton = {
@@ -142,7 +150,9 @@ class PodcastPlayerViewController: UIViewController {
     @objc private func dismissController() {
         player = nil
         viewModel = nil
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: {
+            self.onDissmiss?(true)
+        })
     }
 
     private func configUILayout() {
