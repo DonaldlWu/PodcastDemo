@@ -46,7 +46,7 @@ class MockDataModel {
 class PodcastPlayerViewController: UIViewController {
     private var viewModel: MockDataModel?
     private var player: PlayerObject?
-    var onDissmiss: ((Bool) -> Void)?
+    var onEpsiodeChange: ((Bool) -> Void)?
     
     // MARK: - UI element
     lazy var pausePlayButton: UIButton = {
@@ -136,10 +136,6 @@ class PodcastPlayerViewController: UIViewController {
         setPausePlayButtonImage(with: player.handlePlayPauseAndReturnIsPlaying())
     }
 
-    deinit {
-        onDissmiss?(true)
-    }
-
     private func configUILayout() {
         view.backgroundColor = .systemBackground
         configBackImageView()
@@ -183,6 +179,7 @@ class PodcastPlayerViewController: UIViewController {
         
         // Receiving event when Ep is ready to play
         player.onPlayerReady = { [weak self] isReady in
+            self?.onEpsiodeChange?(true)
             self?.configUIWhenPlayerReady()
         }
         
