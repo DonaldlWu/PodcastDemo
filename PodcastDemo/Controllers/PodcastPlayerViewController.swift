@@ -9,6 +9,7 @@ import UIKit
 import Kingfisher
 
 class MockDataModel {
+    let podcastTitle = "科技島讀"
     let titles = ["SP. 科技島讀請回答",
                   "Ep.145 英雄旅程最終章"]
     let urls = ["0606",

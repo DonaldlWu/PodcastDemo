@@ -31,6 +31,12 @@ class PodcastDescriptionViewController: UIViewController {
         return imageView
     }()
     
+    private let podcastTitleLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.font = .systemFont(ofSize: 24)
+        return lbl
+    }()
+    
     private let descriptionTextView: UITextView = {
         let view = UITextView()
         view.font = .systemFont(ofSize: 16)
@@ -67,10 +73,12 @@ class PodcastDescriptionViewController: UIViewController {
         configPlayButton()
         configBackImageView()
         configDescriptionTextView()
+        configPodcastTitleLabel()
     }
     
     private func configUIContent() {
         DispatchQueue.main.async { [weak self] in
+            self?.podcastTitleLabel.text = self?.viewModel?.podcastTitle
             self?.descriptionTextView.text = self?.viewModel?.returnDescriptionString()
             guard let url = URL(string: self?.viewModel?.returnImageURLString() ?? "") else {
                 return
@@ -113,6 +121,18 @@ class PodcastDescriptionViewController: UIViewController {
             descriptionTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 12),
             descriptionTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -12),
             descriptionTextView.bottomAnchor.constraint(equalTo: playButton.topAnchor, constant: -12)
+        ])
+    }
+    
+    private func configPodcastTitleLabel() {
+        view.addSubview(podcastTitleLabel)
+        podcastTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            podcastTitleLabel.topAnchor.constraint(equalTo: backImageView.topAnchor, constant: 12),
+            podcastTitleLabel.leadingAnchor.constraint(equalTo: backImageView.leadingAnchor, constant: 12),
+            podcastTitleLabel.trailingAnchor.constraint(equalTo: backImageView.trailingAnchor),
+            podcastTitleLabel.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
 }
