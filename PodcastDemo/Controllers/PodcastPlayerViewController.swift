@@ -8,14 +8,35 @@
 import UIKit
 import Kingfisher
 
+class MockDataModel {
+    let titles = ["SP. 科技島讀請回答",
+                  "Ep.145 英雄旅程最終章"]
+    let urls = ["0606",
+                "0530"]
+    let imageURLs = ["https://i1.sndcdn.com/artworks-Z7zJRFuDjv63KCHv-5W8whA-t3000x3000.jpg",
+                     "https://i1.sndcdn.com/artworks-Z7zJRFuDjv63KCHv-5W8whA-t3000x3000.jpg"]
+    
+    var playingCount = 1
+    
+    func updatePlayingCount() {
+        self.playingCount -= 1
+    }
+    
+    func returnURLString() -> String {
+        return urls[playingCount]
+    }
+    
+    func returnImageURLString() -> String {
+        return imageURLs[playingCount]
+    }
+    
+    func returnTitleString() -> String {
+        return titles[playingCount]
+    }
+}
+
 class PodcastPlayerViewController: UIViewController {
-    private let titles = ["SP. 科技島讀請回答",
-                          "Ep.145 英雄旅程最終章"]
-    private let urls = ["0606",
-                        "0530"]
-    private let imageURLs = ["https://i1.sndcdn.com/artworks-Z7zJRFuDjv63KCHv-5W8whA-t3000x3000.jpg",
-                             "https://i1.sndcdn.com/artworks-Z7zJRFuDjv63KCHv-5W8whA-t3000x3000.jpg"]
-    private var playingCount = 1
+    private var viewModel: MockDataModel?
     private var player = PlayerObject()
     
     // MARK: - UI element
@@ -80,6 +101,11 @@ class PodcastPlayerViewController: UIViewController {
         view.font = .systemFont(ofSize: 16)
         return view
     }()
+    
+    convenience init(viewModel: MockDataModel) {
+        self.init()
+        self.viewModel = viewModel
+    }
 
     // MARK: - View did load
     override func viewDidLoad() {
@@ -110,15 +136,23 @@ class PodcastPlayerViewController: UIViewController {
     }
     
     private func configUIContent() {
+        guard let viewModel = viewModel else {
+            return
+        }
+        
         DispatchQueue.main.async {
-            self.descriptionTextView.text = self.titles[self.playingCount]
+            self.descriptionTextView.text = viewModel.returnTitleString()
             self.backImageView.kf.indicatorType = .activity
-            self.backImageView.kf.setImage(with: URL(string: self.imageURLs[self.playingCount]))
+            self.backImageView.kf.setImage(with: URL(string: viewModel.returnImageURLString()))
         }
     }
     
     private func handlePlayerBindingEvent() {
-        player.prepareToPlay(urlString: urls[playingCount])
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        player.prepareToPlay(urlString: viewModel.returnURLString())
         
         // Binding time change
         player.timeOnChange = { [weak self] time in
@@ -134,17 +168,13 @@ class PodcastPlayerViewController: UIViewController {
         
         // Receiving event when Ep is play over
         player.onEpEnd = { [weak self] isEnd in
-            // If is now newest Ep, reset player and play new Ep
-            if self?.playingCount != 0 {
-                self?.playingCount -= 1
-                self?.resetPlayerUI()
-                self?.configUIContent()
-                self?.player.resetPlayer()
-                self?.player.prepareToPlay(urlString: self?.urls[self?.playingCount ?? 0] ?? "")
-            } else {
-               // All ep played, just reset UI and return player to start point
-                self?.resetPlayerUI(hasNewerEp: false)
-                self?.player.handleSliderWith(with: 0)
+            // If have newer Ep, reset player and play newer Ep
+            switch self?.checkPlayingCount() {
+            case true:
+                self?.configForNextEpsoide()
+            default:
+                // All ep played, just reset UI and return player to start point
+                self?.stopPodcastAndResetUI()
             }
         }
     }
@@ -186,6 +216,31 @@ class PodcastPlayerViewController: UIViewController {
             }
         }
     }
+    
+    private func configForNextEpsoide() {
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        viewModel.updatePlayingCount()
+        resetPlayerUI()
+        configUIContent()
+        player.resetPlayer()
+        player.prepareToPlay(urlString: viewModel.returnURLString())
+    }
+    
+    private func stopPodcastAndResetUI() {
+        resetPlayerUI(hasNewerEp: false)
+        player.handleSliderWith(with: 0)
+    }
+    
+    private func checkPlayingCount() -> Bool {
+        guard let viewModel = viewModel else {
+            return false
+        }
+        return viewModel.playingCount != 0
+    }
+    
 }
 
 // MARK: - UI layout
