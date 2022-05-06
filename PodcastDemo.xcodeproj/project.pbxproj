@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C00963542824206500A9F45A /* PodcastDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00963532824206500A9F45A /* PodcastDescriptionViewController.swift */; };
 		C0A3639A282530910004A4D4 /* EpsiodeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A36399282530910004A4D4 /* EpsiodeListViewController.swift */; };
+		C0A3639D2825398B0004A4D4 /* XMLCoder in Frameworks */ = {isa = PBXBuildFile; productRef = C0A3639C2825398B0004A4D4 /* XMLCoder */; };
 		C0AD03C728218B59009728CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03C628218B59009728CA /* AppDelegate.swift */; };
 		C0AD03C928218B59009728CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03C828218B59009728CA /* SceneDelegate.swift */; };
 		C0AD03CB28218B59009728CA /* PodcastPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03CA28218B59009728CA /* PodcastPlayerViewController.swift */; };
@@ -53,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0A3639D2825398B0004A4D4 /* XMLCoder in Frameworks */,
 				C0BCCCA8282400F7004E0E02 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,6 +139,7 @@
 			name = PodcastDemo;
 			packageProductDependencies = (
 				C0BCCCA7282400F7004E0E02 /* Kingfisher */,
+				C0A3639C2825398B0004A4D4 /* XMLCoder */,
 			);
 			productName = PodcastDemo;
 			productReference = C0AD03C328218B59009728CA /* PodcastDemo.app */;
@@ -190,6 +193,7 @@
 			mainGroup = C0AD03BA28218B59009728CA;
 			packageReferences = (
 				C0BCCCA6282400F7004E0E02 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				C0A3639B2825398B0004A4D4 /* XCRemoteSwiftPackageReference "XMLCoder" */,
 			);
 			productRefGroup = C0AD03C428218B59009728CA /* Products */;
 			projectDirPath = "";
@@ -521,6 +525,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C0A3639B2825398B0004A4D4 /* XCRemoteSwiftPackageReference "XMLCoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CoreOffice/XMLCoder";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		C0BCCCA6282400F7004E0E02 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
@@ -532,6 +544,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C0A3639C2825398B0004A4D4 /* XMLCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0A3639B2825398B0004A4D4 /* XCRemoteSwiftPackageReference "XMLCoder" */;
+			productName = XMLCoder;
+		};
 		C0BCCCA7282400F7004E0E02 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C0BCCCA6282400F7004E0E02 /* XCRemoteSwiftPackageReference "Kingfisher" */;
