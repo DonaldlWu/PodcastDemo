@@ -8,18 +8,19 @@
 import UIKit
 
 class EpsiodeListViewController: UITableViewController {
-    private let url = "https://feeds.soundcloud.com/users/soundcloud:users:322164009/sounds.rss"
+    private var loader: RSSLoader?
+    
+    convenience init(loader: RSSLoader?) {
+        self.init()
+        self.loader = loader
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        rssFeedFetchCheck()
     }
     
-    private func rssFeedFetchCheck() {
-        guard let url = URL(string: url) else {
-            return
-        }
-        RSSLoader(url: url).load { result in
+    private func loadRssFeed() {
+        loader?.load { result in
             switch result {
             case let .success(rss):
                 print(rss)
@@ -28,4 +29,5 @@ class EpsiodeListViewController: UITableViewController {
             }
         }
     }
+    
 }
