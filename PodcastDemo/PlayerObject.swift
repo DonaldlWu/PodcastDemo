@@ -25,10 +25,7 @@ class PlayerObject: NSObject {
     
     // Apple doc: https://developer.apple.com/documentation/avfoundation/media_playback_and_selection/observing_playback_state
     func prepareToPlay(urlString: String) {
-        let url = Bundle.main.url(forResource: urlString, withExtension: "mp3")!
-
-//        let urlString = "https://feeds.soundcloud.com/stream/1062984568-daodutech-podcast-please-answer-daodu-tech.mp3"
-//        guard let url = URL(string: urlString) else { return }
+        guard let url = URL(string: urlString) else { return }
         asset = AVAsset(url: url)
 
         playerItem = AVPlayerItem(asset: asset,

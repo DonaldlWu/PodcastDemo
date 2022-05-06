@@ -29,12 +29,14 @@ struct Enclosure: Decodable {
 struct Item: Decodable {
     let title: String
     let pubDate: String
+    let description: String
     let enclosure: Enclosure
     let image: ItemImage
     
     enum CodingKeys: String, CodingKey {
         case title
         case pubDate
+        case description
         case enclosure
         case image = "itunes:image"
     }

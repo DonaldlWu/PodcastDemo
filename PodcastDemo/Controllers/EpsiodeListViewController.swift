@@ -105,4 +105,22 @@ extension EpsiodeListViewController {
         
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let tableModel = tableModel else { return }
+        let titles = tableModel.channel.item.map { $0.title }
+        let urls = tableModel.channel.item.map { $0.enclosure.url }
+        let imageURLs = tableModel.channel.item.map { $0.image.href }
+        let descriptions = tableModel.channel.item.map { $0.description }
+        
+        
+        let viewModel = RSSFeedViewModel(podcastTitle: tableModel.channel.title,
+                                         titles: titles,
+                                         urls: urls,
+                                         imageURLs: imageURLs,
+                                         descriptions: descriptions,
+                                         playingCount: indexPath.row)
+        let podDesVC = PodcastDescriptionViewController(viewModel: viewModel)
+        show(podDesVC, sender: self)
+    }
 }

@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 class PodcastDescriptionViewController: UIViewController {
-    private var viewModel: MockDataModel?
+    private var viewModel: RSSFeedViewModel?
     
     private let playButton: UIButton = {
         let btn = UIButton()
@@ -50,7 +50,7 @@ class PodcastDescriptionViewController: UIViewController {
         return view
     }()
     
-    convenience init(viewModel: MockDataModel) {
+    convenience init(viewModel: RSSFeedViewModel) {
         self.init()
         self.viewModel = viewModel
     }

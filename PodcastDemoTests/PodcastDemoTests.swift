@@ -18,7 +18,7 @@ class PodcastPlayerViewControllerTests: XCTestCase {
     
     // MARK: - Helpers
     private func makeSUT() -> PodcastPlayerViewController {
-        let viewModel = MockDataModel()
+        let viewModel = RSSFeedViewModel()
         let player = PlayerObject()
         let sut = PodcastPlayerViewController(viewModel: viewModel, player: player)
         trackForMemoryLeaks(sut)

@@ -10,8 +10,6 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    
-    let viewModel = MockDataModel()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -23,9 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         guard let url = URL(string: "https://feeds.soundcloud.com/users/soundcloud:users:322164009/sounds.rss") else { return }
         let loader = RSSLoader(url: url)
-//        window?.rootViewController = UINavigationController(rootViewController: PodcastDescriptionViewController(viewModel: viewModel))
         let rootViewController = UINavigationController(rootViewController: EpsiodeListViewController(loader: loader))
-        rootViewController.isNavigationBarHidden = true
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
     }
