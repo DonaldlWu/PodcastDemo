@@ -17,16 +17,34 @@ class EpsiodeListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(loadRssFeed), for: .valueChanged)
+        loadRssFeed()
     }
     
-    private func loadRssFeed() {
-        loader?.load { result in
+    @objc private func loadRssFeed() {
+        startRefreshing()
+        loader?.load { [weak self] result in
             switch result {
             case let .success(rss):
                 print(rss)
-            case .failure:
-                break
+            case let .failure(error):
+                print(error)
             }
+            self?.endRefreshing()
+        }
+    }
+    
+    private func startRefreshing() {
+        DispatchQueue.main.async {
+            self.refreshControl?.beginRefreshing()
+        }
+    }
+    
+    private func endRefreshing() {
+        DispatchQueue.main.async {
+            self.refreshControl?.endRefreshing()
         }
     }
     

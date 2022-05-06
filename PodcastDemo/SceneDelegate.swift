@@ -21,9 +21,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func configureWindow(withScene windowScene: UIWindowScene) {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        
+        guard let url = URL(string: "https://feeds.soundcloud.com/users/soundcloud:users:322164009/sounds.rss") else { return }
+        let loader = RSSLoader(url: url)
 //        window?.rootViewController = UINavigationController(rootViewController: PodcastDescriptionViewController(viewModel: viewModel))
-        window?.rootViewController = UINavigationController(rootViewController: EpsiodeListViewController())
+        window?.rootViewController = UINavigationController(rootViewController: EpsiodeListViewController(loader: loader))
         
         window?.makeKeyAndVisible()
     }
