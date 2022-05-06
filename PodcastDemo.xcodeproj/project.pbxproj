@@ -12,6 +12,7 @@
 		C0A3639D2825398B0004A4D4 /* XMLCoder in Frameworks */ = {isa = PBXBuildFile; productRef = C0A3639C2825398B0004A4D4 /* XMLCoder */; };
 		C0A363A128253A3C0004A4D4 /* RSSItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363A028253A3C0004A4D4 /* RSSItem.swift */; };
 		C0A363A328255AF00004A4D4 /* RSSLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363A228255AF00004A4D4 /* RSSLoader.swift */; };
+		C0A363A6282565DB0004A4D4 /* EpsiodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363A5282565DB0004A4D4 /* EpsiodeCell.swift */; };
 		C0AD03C728218B59009728CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03C628218B59009728CA /* AppDelegate.swift */; };
 		C0AD03C928218B59009728CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03C828218B59009728CA /* SceneDelegate.swift */; };
 		C0AD03CB28218B59009728CA /* PodcastPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03CA28218B59009728CA /* PodcastPlayerViewController.swift */; };
@@ -39,6 +40,7 @@
 		C0A36399282530910004A4D4 /* EpsiodeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpsiodeListViewController.swift; sourceTree = "<group>"; };
 		C0A363A028253A3C0004A4D4 /* RSSItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItem.swift; sourceTree = "<group>"; };
 		C0A363A228255AF00004A4D4 /* RSSLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSLoader.swift; sourceTree = "<group>"; };
+		C0A363A5282565DB0004A4D4 /* EpsiodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpsiodeCell.swift; sourceTree = "<group>"; };
 		C0AD03C328218B59009728CA /* PodcastDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodcastDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0AD03C628218B59009728CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0AD03C828218B59009728CA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		C0A363A4282565B20004A4D4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C0A363A5282565DB0004A4D4 /* EpsiodeCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		C0AD03BA28218B59009728CA = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +118,7 @@
 				C0A363A228255AF00004A4D4 /* RSSLoader.swift */,
 				C0D04D862822C53A00764673 /* Controllers */,
 				C0A3639E282539CB0004A4D4 /* Model */,
+				C0A363A4282565B20004A4D4 /* View */,
 				C0AD03C628218B59009728CA /* AppDelegate.swift */,
 				C0AD03C828218B59009728CA /* SceneDelegate.swift */,
 				C0AD03CF28218B5A009728CA /* Assets.xcassets */,
@@ -251,6 +262,7 @@
 				C00963542824206500A9F45A /* PodcastDescriptionViewController.swift in Sources */,
 				C0A363A128253A3C0004A4D4 /* RSSItem.swift in Sources */,
 				C0AD03C728218B59009728CA /* AppDelegate.swift in Sources */,
+				C0A363A6282565DB0004A4D4 /* EpsiodeCell.swift in Sources */,
 				C0A3639A282530910004A4D4 /* EpsiodeListViewController.swift in Sources */,
 				C0AD03C928218B59009728CA /* SceneDelegate.swift in Sources */,
 			);

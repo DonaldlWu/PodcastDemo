@@ -41,7 +41,7 @@ struct Item: Decodable {
 }
 
 struct ItemImage: Decodable {
-    let href: String?
+    let href: String
 }
 
 

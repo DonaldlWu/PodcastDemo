@@ -44,7 +44,8 @@ class EpsiodeListViewController: UITableViewController {
     }
     
     private func registerCell() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+        tableView.separatorStyle = .none
+        tableView.register(EpsiodeCell.self, forCellReuseIdentifier: "cellId")
     }
     
     private func configRefreshControl() {
@@ -90,11 +91,17 @@ extension EpsiodeListViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! EpsiodeCell
         guard let tableModel = tableModel else {
             return UITableViewCell()
         }
-        cell.textLabel?.text = tableModel.channel.item[indexPath.row].title
+        let items = tableModel.channel.item
+        let url = URL(string: items[indexPath.row].image.href)
+        cell.epImageView.kf.indicatorType = .activity
+        cell.epImageView.kf.setImage(with: url)
+        
+        cell.titleLabel.text = items[indexPath.row].title
+        cell.pubDateLabel.text = items[indexPath.row].pubDate
         
         return cell
     }
