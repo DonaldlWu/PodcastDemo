@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class EpsiodeListViewController: UITableViewController {
     private var loader: RSSLoader?
@@ -18,7 +19,7 @@ class EpsiodeListViewController: UITableViewController {
     }
     
     convenience init(loader: RSSLoader?) {
-        self.init()
+        self.init(style: .grouped)
         self.loader = loader
     }
     
@@ -65,6 +66,22 @@ class EpsiodeListViewController: UITableViewController {
 }
 
 extension EpsiodeListViewController {
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let tableModel = tableModel else {
+            return UIImageView(image: UIImage(systemName: "xmark"))
+        }
+        let view = UIImageView()
+        let url = URL(string: tableModel.channel.image[0].url)
+        view.kf.indicatorType = .activity
+        view.kf.setImage(with: url)
+        return view
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 250
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let tableModel = tableModel else {
             return 0
