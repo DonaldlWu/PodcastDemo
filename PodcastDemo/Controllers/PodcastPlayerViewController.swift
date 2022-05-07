@@ -56,7 +56,7 @@ class PodcastPlayerViewController: UIViewController {
 
     private let activityIndicatorView: UIActivityIndicatorView = {
         let aiv = UIActivityIndicatorView(style: .large)
-        aiv.backgroundColor = .white
+        aiv.backgroundColor = .systemBackground
         aiv.startAnimating()
         return aiv
     }()
@@ -90,6 +90,11 @@ class PodcastPlayerViewController: UIViewController {
         configUILayout()
         configUIContent()
         handlePlayerBindingEvent()
+    }
+    
+    deinit {
+        self.player?.resetPlayer()
+        self.player = nil
     }
     
     @objc private func handleSlider() {

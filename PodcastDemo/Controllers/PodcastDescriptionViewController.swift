@@ -67,7 +67,7 @@ class PodcastDescriptionViewController: UIViewController {
         }
         let player = PlayerObject()
         let controller = PodcastPlayerViewController(viewModel: viewModel, player: player)
-        controller.modalPresentationStyle = .fullScreen
+        
         controller.onEpsiodeChange = { [weak self] result in
             self?.configUIContent()
         }

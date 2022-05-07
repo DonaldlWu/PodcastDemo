@@ -50,11 +50,24 @@ class PlayerObject: NSObject {
             [weak self] time in
             // update player transport UI
             self?.timeOnChange?(time.durationText)
+        }
+    }
+    
+    private func addBoundaryTimeObserver() {
+        // Divide the asset's duration into quarters.
+        let interval = CMTimeMultiplyByFloat64(asset.duration, multiplier: 0.25)
+        var currentTime = CMTime.zero
+        var times = [NSValue]()
 
-            // Check current ep is over
-            if time == self?.playerItem.duration {
-                self?.onEpEnd?(true)
-            }
+        // Calculate boundary times
+        while currentTime < asset.duration {
+            currentTime = currentTime + interval
+            times.append(NSValue(time:currentTime))
+        }
+
+        timeObserverToken = player.addBoundaryTimeObserver(forTimes: times,
+                                                           queue: .main) {
+            self.onEpEnd?(true)
         }
     }
     
@@ -76,6 +89,7 @@ class PlayerObject: NSObject {
             }
             switch status {
             case .readyToPlay:
+                addBoundaryTimeObserver()
                 self.onPlayerReady?(true)
                 player.play()
             case .failed, .unknown:
