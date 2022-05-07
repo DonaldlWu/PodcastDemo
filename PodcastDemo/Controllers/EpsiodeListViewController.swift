@@ -30,6 +30,16 @@ class EpsiodeListViewController: UITableViewController {
         loadRssFeed()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated);
+        super.viewWillDisappear(animated)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     @objc private func loadRssFeed() {
         startRefreshing()
         loader?.load { [weak self] result in
@@ -92,16 +102,18 @@ extension EpsiodeListViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! EpsiodeCell
-        guard let tableModel = tableModel else {
+        guard let tableModel = tableModel,
+              let url = URL(string: tableModel.channel.item[indexPath.row].image.href) else {
             return UITableViewCell()
         }
         let items = tableModel.channel.item
-        let url = URL(string: items[indexPath.row].image.href)
+        
         cell.epImageView.kf.indicatorType = .activity
-        cell.epImageView.kf.setImage(with: url)
+        let resource = ImageResource(downloadURL: url, cacheKey: "list_image_cache")
+        cell.epImageView.kf.setImage(with: resource)
         
         cell.titleLabel.text = items[indexPath.row].title
-        cell.pubDateLabel.text = items[indexPath.row].pubDate
+        cell.pubDateLabel.text = items[indexPath.row].pubDate.convertDateStringForReadibility
         
         return cell
     }
@@ -112,8 +124,8 @@ extension EpsiodeListViewController {
         let urls = tableModel.channel.item.map { $0.enclosure.url }
         let imageURLs = tableModel.channel.item.map { $0.image.href }
         let descriptions = tableModel.channel.item.map { $0.description }
-        
-        
+        // TODO: - Map function to control mapping model(only update when tableModel update)
+
         let viewModel = RSSFeedViewModel(podcastTitle: tableModel.channel.title,
                                          titles: titles,
                                          urls: urls,
@@ -122,5 +134,23 @@ extension EpsiodeListViewController {
                                          playingCount: indexPath.row)
         let podDesVC = PodcastDescriptionViewController(viewModel: viewModel)
         show(podDesVC, sender: self)
+    }
+}
+
+extension String {
+    var convertDateStringForReadibility: String {
+        return stringToDate(self)
+    }
+    
+    private func stringToDate(_ string: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ssZ"
+        return dateString(date: dateFormatter.date(from: string)!)
+    }
+    
+    private func dateString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        return dateFormatter.string(from: date)
     }
 }
