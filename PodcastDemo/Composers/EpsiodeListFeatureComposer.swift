@@ -14,6 +14,9 @@ final class EpsiodeListFeatureComposer {
         let epsiodeViewController = EpsiodeListViewController(refreshController: refreshController)
         viewModel.onRSSLoaded = { rss in
             epsiodeViewController.tableModel = rss
+            let ocObject = urlObject.init()
+            ocObject.url = rss.channel.image[0].url
+            epsiodeViewController.titleImageURL = ocObject
         }
         
         return epsiodeViewController

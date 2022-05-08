@@ -10,7 +10,7 @@ import Kingfisher
 
 class EpsiodeListViewController: UITableViewController {
     private var refreshController: ListRefreshViewController?
-    
+    var titleImageURL: urlObject?
     var tableModel: RSSItem? {
         didSet {
             DispatchQueue.main.async {
@@ -53,11 +53,10 @@ class EpsiodeListViewController: UITableViewController {
 extension EpsiodeListViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let tableModel = tableModel else {
+        guard let object = titleImageURL, let url = URL(string: object.url) else {
             return UIImageView()
         }
         let view = UIImageView()
-        let url = URL(string: tableModel.channel.image[0].url)
         view.kf.indicatorType = .activity
         view.kf.setImage(with: url)
         return view

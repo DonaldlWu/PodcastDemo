@@ -34,7 +34,7 @@ class RSSLoader: RSSFeedLoader {
             if let data = data {
                 do {
                     let rss = try XMLDecoder().decode(RSSItem.self, from: data)
-                    
+                    // TODO: Replace return `RSSItem` to a OC object
                     completion(.success(rss))
                 } catch let (error) {
                     print(error)
