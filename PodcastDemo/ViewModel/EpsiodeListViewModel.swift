@@ -7,9 +7,9 @@
 
 
 final class EpsiodeListViewModel {
-    private let loader: RSSLoader
+    private let loader: RSSFeedLoader
     
-    init(loader: RSSLoader) {
+    init(loader: RSSFeedLoader) {
         self.loader = loader
     }
     

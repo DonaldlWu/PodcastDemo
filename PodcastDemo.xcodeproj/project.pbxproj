@@ -19,6 +19,7 @@
 		C0A363B02827B6600004A4D4 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363AF2827B6600004A4D4 /* String+Extension.swift */; };
 		C0A363B32827BB920004A4D4 /* EpsiodeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363B22827BB920004A4D4 /* EpsiodeListViewModel.swift */; };
 		C0A363B62827BBDF0004A4D4 /* EpsiodeListFeatureComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363B52827BBDF0004A4D4 /* EpsiodeListFeatureComposer.swift */; };
+		C0A363B82827C4050004A4D4 /* EpsiodeListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363B72827C4050004A4D4 /* EpsiodeListViewControllerTests.swift */; };
 		C0AD03C728218B59009728CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03C628218B59009728CA /* AppDelegate.swift */; };
 		C0AD03C928218B59009728CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03C828218B59009728CA /* SceneDelegate.swift */; };
 		C0AD03CB28218B59009728CA /* PodcastPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03CA28218B59009728CA /* PodcastPlayerViewController.swift */; };
@@ -51,6 +52,7 @@
 		C0A363AF2827B6600004A4D4 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		C0A363B22827BB920004A4D4 /* EpsiodeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpsiodeListViewModel.swift; sourceTree = "<group>"; };
 		C0A363B52827BBDF0004A4D4 /* EpsiodeListFeatureComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpsiodeListFeatureComposer.swift; sourceTree = "<group>"; };
+		C0A363B72827C4050004A4D4 /* EpsiodeListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpsiodeListViewControllerTests.swift; sourceTree = "<group>"; };
 		C0AD03C328218B59009728CA /* PodcastDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodcastDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0AD03C628218B59009728CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0AD03C828218B59009728CA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		C0AD03DC28218B5A009728CA /* PodcastDemoTests */ = {
 			isa = PBXGroup;
 			children = (
+				C0A363B72827C4050004A4D4 /* EpsiodeListViewControllerTests.swift */,
 				C0AD03DD28218B5A009728CA /* PodcastPlayerViewControllerTests.swift */,
 			);
 			path = PodcastDemoTests;
@@ -312,6 +315,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0A363B82827C4050004A4D4 /* EpsiodeListViewControllerTests.swift in Sources */,
 				C0AD03DE28218B5A009728CA /* PodcastPlayerViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

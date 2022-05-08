@@ -8,7 +8,7 @@
 final class EpsiodeListFeatureComposer {
     private init() {}
     
-    static func ListFeatureComposerWith(loader: RSSLoader) -> EpsiodeListViewController {
+    static func ListFeatureComposerWith(loader: RSSFeedLoader) -> EpsiodeListViewController {
         let viewModel = EpsiodeListViewModel(loader: loader)
         let refreshController = ListRefreshViewController(viewModel: viewModel)
         let epsiodeViewController = EpsiodeListViewController(refreshController: refreshController)

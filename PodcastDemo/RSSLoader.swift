@@ -8,12 +8,16 @@
 import XMLCoder
 import Foundation
 
+protocol RSSFeedLoader {
+    func load(completion: @escaping (RSSLoadResult) -> Void)
+}
+
 enum RSSLoadResult {
     case success(RSSItem)
     case failure(Error)
 }
 
-class RSSLoader {
+class RSSLoader: RSSFeedLoader {
     private let url: URL
     
     init(url: URL) {
