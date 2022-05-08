@@ -24,7 +24,7 @@
 		C0AD03CB28218B59009728CA /* PodcastPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03CA28218B59009728CA /* PodcastPlayerViewController.swift */; };
 		C0AD03D028218B5A009728CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0AD03CF28218B5A009728CA /* Assets.xcassets */; };
 		C0AD03D328218B5A009728CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0AD03D128218B5A009728CA /* LaunchScreen.storyboard */; };
-		C0AD03DE28218B5A009728CA /* PodcastDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03DD28218B5A009728CA /* PodcastDemoTests.swift */; };
+		C0AD03DE28218B5A009728CA /* PodcastPlayerViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03DD28218B5A009728CA /* PodcastPlayerViewControllerTests.swift */; };
 		C0BCCCA8282400F7004E0E02 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C0BCCCA7282400F7004E0E02 /* Kingfisher */; };
 		C0D04D852822C4BF00764673 /* PlayerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D04D842822C4BF00764673 /* PlayerObject.swift */; };
 /* End PBXBuildFile section */
@@ -59,7 +59,7 @@
 		C0AD03D228218B5A009728CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0AD03D428218B5A009728CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0AD03D928218B5A009728CA /* PodcastDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PodcastDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0AD03DD28218B5A009728CA /* PodcastDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastDemoTests.swift; sourceTree = "<group>"; };
+		C0AD03DD28218B5A009728CA /* PodcastPlayerViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastPlayerViewControllerTests.swift; sourceTree = "<group>"; };
 		C0D04D842822C4BF00764673 /* PlayerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,7 +165,7 @@
 		C0AD03DC28218B5A009728CA /* PodcastDemoTests */ = {
 			isa = PBXGroup;
 			children = (
-				C0AD03DD28218B5A009728CA /* PodcastDemoTests.swift */,
+				C0AD03DD28218B5A009728CA /* PodcastPlayerViewControllerTests.swift */,
 			);
 			path = PodcastDemoTests;
 			sourceTree = "<group>";
@@ -312,7 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0AD03DE28218B5A009728CA /* PodcastDemoTests.swift in Sources */,
+				C0AD03DE28218B5A009728CA /* PodcastPlayerViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
