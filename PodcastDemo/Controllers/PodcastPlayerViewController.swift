@@ -8,8 +8,6 @@
 import UIKit
 import Kingfisher
 
-
-
 class PodcastPlayerViewController: UIViewController {
     private var viewModel: RSSFeedViewModel?
     private var player: PlayerObject?
@@ -141,6 +139,8 @@ class PodcastPlayerViewController: UIViewController {
         }
         
         player.prepareToPlay(urlString: viewModel.returnURLString())
+        // TODO: Fix this by properly deal with player memory
+        self.navigationItem.setHidesBackButton(true, animated: true)
         
         // Binding time change
         player.timeOnChange = { [weak self] time in
@@ -153,6 +153,7 @@ class PodcastPlayerViewController: UIViewController {
         player.onPlayerReady = { [weak self] isReady in
             self?.onEpsiodeChange?(true)
             self?.configUIWhenPlayerReady()
+            self?.navigationItem.setHidesBackButton(false, animated: true)
         }
         
         // Receiving event when Ep is play over
@@ -216,6 +217,7 @@ class PodcastPlayerViewController: UIViewController {
         configUIContent()
         player?.resetPlayer()
         player?.prepareToPlay(urlString: viewModel.returnURLString())
+        self.navigationItem.setHidesBackButton(true, animated: true)
     }
     
     private func stopPodcastAndResetUI() {
