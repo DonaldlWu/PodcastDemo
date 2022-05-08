@@ -8,31 +8,28 @@
 import UIKit
 
 final class ListRefreshViewController: NSObject {
-    private let loader: RSSLoader
+    private(set) lazy var view = binded(UIRefreshControl())
     
-    private(set) lazy var view: UIRefreshControl = {
-        let view = UIRefreshControl()
-        view.addTarget(self, action: #selector(loadRssFeed), for: .valueChanged)
-        return view
-    }()
+    private let viewModel: EpsiodeListViewModel
     
-    init(loader: RSSLoader) {
-        self.loader = loader
+    init(viewModel: EpsiodeListViewModel) {
+        self.viewModel = viewModel
     }
     
-    var onRefresh: ((RSSItem) -> Void)?
+    @objc func refresh() {
+        viewModel.loadRssFeed()
+    }
     
-    @objc func loadRssFeed() {
-        self.refreshControlAction(with: true)
-        loader.load { [weak self] result in
-            switch result {
-            case let .success(rss):
-                self?.onRefresh?(rss)
-            case let .failure(error):
-                print(error)
+    private func binded(_ view: UIRefreshControl) -> UIRefreshControl {
+        viewModel.onChange = { [weak self] viewModel in
+            if viewModel.isLoading {
+                self?.refreshControlAction(with: true)
+            } else {
+                self?.refreshControlAction(with: false)
             }
-            self?.refreshControlAction(with: false)
         }
+        view.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return view
     }
     
     private func refreshControlAction(with value: Bool) {

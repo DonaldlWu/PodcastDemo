@@ -11,7 +11,7 @@ import Kingfisher
 class EpsiodeListViewController: UITableViewController {
     private var refreshController: ListRefreshViewController?
     
-    private var tableModel: RSSItem? {
+    var tableModel: RSSItem? {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -19,9 +19,9 @@ class EpsiodeListViewController: UITableViewController {
         }
     }
     
-    convenience init(loader: RSSLoader) {
+    convenience init(refreshController: ListRefreshViewController) {
         self.init(style: .grouped)
-        self.refreshController = ListRefreshViewController(loader: loader)
+        self.refreshController = refreshController
     }
     
     override func viewDidLoad() {
@@ -46,10 +46,7 @@ class EpsiodeListViewController: UITableViewController {
     
     private func configRefreshControl() {
         refreshControl = refreshController?.view
-        refreshController?.onRefresh = { [weak self] rss in
-            self?.tableModel = rss
-        }
-        refreshController?.loadRssFeed()
+        refreshController?.refresh()
     }
 }
 

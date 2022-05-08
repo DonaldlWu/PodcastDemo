@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let url = URL(string: "https://feeds.soundcloud.com/users/soundcloud:users:322164009/sounds.rss") else { return }
         let loader = RSSLoader(url: url)
-        let rootViewController = UINavigationController(rootViewController: EpsiodeListViewController(loader: loader))
+        let rootViewController = UINavigationController(rootViewController: EpsiodeListFeatureComposer.ListFeatureComposerWith(loader: loader))
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
     }
