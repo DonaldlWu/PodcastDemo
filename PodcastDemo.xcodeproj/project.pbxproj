@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C00963542824206500A9F45A /* PodcastDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00963532824206500A9F45A /* PodcastDescriptionViewController.swift */; };
+		C068B0F828280B7300C7C02A /* CMTime+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C068B0F728280B7300C7C02A /* CMTime+Extension.swift */; };
 		C0A3639A282530910004A4D4 /* EpsiodeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A36399282530910004A4D4 /* EpsiodeListViewController.swift */; };
 		C0A3639D2825398B0004A4D4 /* XMLCoder in Frameworks */ = {isa = PBXBuildFile; productRef = C0A3639C2825398B0004A4D4 /* XMLCoder */; };
 		C0A363A128253A3C0004A4D4 /* RSSItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363A028253A3C0004A4D4 /* RSSItem.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		C00963532824206500A9F45A /* PodcastDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastDescriptionViewController.swift; sourceTree = "<group>"; };
+		C068B0F728280B7300C7C02A /* CMTime+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMTime+Extension.swift"; sourceTree = "<group>"; };
 		C0A36399282530910004A4D4 /* EpsiodeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpsiodeListViewController.swift; sourceTree = "<group>"; };
 		C0A363A028253A3C0004A4D4 /* RSSItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItem.swift; sourceTree = "<group>"; };
 		C0A363A228255AF00004A4D4 /* RSSLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSLoader.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				C0A363AF2827B6600004A4D4 /* String+Extension.swift */,
+				C068B0F728280B7300C7C02A /* CMTime+Extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				C0A3639A282530910004A4D4 /* EpsiodeListViewController.swift in Sources */,
 				C0AD03C928218B59009728CA /* SceneDelegate.swift in Sources */,
 				C0A363AD2827B1F40004A4D4 /* EpsiodeCellController.swift in Sources */,
+				C068B0F828280B7300C7C02A /* CMTime+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
