@@ -138,7 +138,7 @@ class PodcastPlayerViewController: UIViewController {
             return
         }
         
-        player.prepareToPlay(urlString: viewModel.returnURLString())
+        player.prepareToPlay(with: viewModel.returnURLString())
         // TODO: Fix this by properly deal with player memory
         self.navigationItem.setHidesBackButton(true, animated: true)
         
@@ -216,7 +216,7 @@ class PodcastPlayerViewController: UIViewController {
         resetPlayerUI()
         configUIContent()
         player?.resetPlayer()
-        player?.prepareToPlay(urlString: viewModel.returnURLString())
+        player?.prepareToPlay(with: viewModel.returnURLString())
         self.navigationItem.setHidesBackButton(true, animated: true)
     }
     
