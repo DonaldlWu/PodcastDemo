@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -13,17 +14,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
+        configImageCache()
         configureWindow(withScene: windowScene)
     }
     
     private func configureWindow(withScene windowScene: UIWindowScene) {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
+        
         guard let url = URL(string: "https://feeds.soundcloud.com/users/soundcloud:users:322164009/sounds.rss") else { return }
         let loader = RSSLoader(url: url)
         let rootViewController = UINavigationController(rootViewController: EpsiodeListViewController(loader: loader))
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
+    }
+    
+    private func configImageCache() {
+        // https://github.com/onevcat/Kingfisher/wiki/Cheat-Sheet#set-limit-for-cache
+        ImageCache.default.memoryStorage.config.totalCostLimit = 200 * 1024 * 1024 // limit about 200 mb in memory
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class EpsiodeCell: UITableViewCell {
     
@@ -32,6 +33,11 @@ class EpsiodeCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configUI()
+    }
+    
+    func downloadImageFrom(url: URL) {
+        epImageView.kf.indicatorType = .activity
+        epImageView.kf.setImage(with: url)
     }
     
     private func configUI() {

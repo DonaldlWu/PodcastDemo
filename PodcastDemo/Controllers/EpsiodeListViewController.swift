@@ -26,7 +26,7 @@ class EpsiodeListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerCell()
+        configTableView()
         configRefreshControl()
     }
     
@@ -40,9 +40,8 @@ class EpsiodeListViewController: UITableViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
-    private func registerCell() {
+    private func configTableView() {
         tableView.separatorStyle = .none
-        tableView.register(EpsiodeCell.self, forCellReuseIdentifier: "cellId")
     }
     
     private func configRefreshControl() {
@@ -79,21 +78,12 @@ extension EpsiodeListViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! EpsiodeCell
-        guard let tableModel = tableModel,
-              let url = URL(string: tableModel.channel.item[indexPath.row].image.href) else {
+        guard let tableModel = tableModel else {
             return UITableViewCell()
         }
-        let items = tableModel.channel.item
-        
-        cell.epImageView.kf.indicatorType = .activity
-        let resource = ImageResource(downloadURL: url, cacheKey: "list_image_cache")
-        cell.epImageView.kf.setImage(with: resource)
-        
-        cell.titleLabel.text = items[indexPath.row].title
-        cell.pubDateLabel.text = items[indexPath.row].pubDate.convertDateStringForReadibility
-        
-        return cell
+        let model = tableModel.channel.item[indexPath.row]
+        let cellController = EpsiodeCellController(model: model)
+        return cellController.view()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
