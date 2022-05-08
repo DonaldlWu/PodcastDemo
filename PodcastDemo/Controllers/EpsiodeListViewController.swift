@@ -9,7 +9,8 @@ import UIKit
 import Kingfisher
 
 class EpsiodeListViewController: UITableViewController {
-    private var loader: RSSLoader?
+    private var refreshController: ListRefreshViewController?
+    
     private var tableModel: RSSItem? {
         didSet {
             DispatchQueue.main.async {
@@ -18,16 +19,15 @@ class EpsiodeListViewController: UITableViewController {
         }
     }
     
-    convenience init(loader: RSSLoader?) {
+    convenience init(loader: RSSLoader) {
         self.init(style: .grouped)
-        self.loader = loader
+        self.refreshController = ListRefreshViewController(loader: loader)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCell()
         configRefreshControl()
-        loadRssFeed()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -40,39 +40,17 @@ class EpsiodeListViewController: UITableViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
-    @objc private func loadRssFeed() {
-        startRefreshing()
-        loader?.load { [weak self] result in
-            switch result {
-            case let .success(rss):
-                self?.tableModel = rss
-            case let .failure(error):
-                print(error)
-            }
-            self?.endRefreshing()
-        }
-    }
-    
     private func registerCell() {
         tableView.separatorStyle = .none
         tableView.register(EpsiodeCell.self, forCellReuseIdentifier: "cellId")
     }
     
     private func configRefreshControl() {
-        refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(loadRssFeed), for: .valueChanged)
-    }
-    
-    private func startRefreshing() {
-        DispatchQueue.main.async {
-            self.refreshControl?.beginRefreshing()
+        refreshControl = refreshController?.view
+        refreshController?.onRefresh = { [weak self] rss in
+            self?.tableModel = rss
         }
-    }
-    
-    private func endRefreshing() {
-        DispatchQueue.main.async {
-            self.refreshControl?.endRefreshing()
-        }
+        refreshController?.loadRssFeed()
     }
 }
 
