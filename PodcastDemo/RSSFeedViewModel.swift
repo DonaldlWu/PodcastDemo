@@ -15,15 +15,14 @@ class RSSFeedViewModel {
     let descriptions: [String]
     var playingCount: Int
     
-    init(podcastTitle: String, titles: [String], urls: [String], imageURLs: [String], descriptions: [String], playingCount: Int) {
-        self.podcastTitle = podcastTitle
-        self.titles = titles
-        self.urls = urls
-        self.imageURLs = imageURLs
-        self.descriptions = descriptions
+    init(rssItem: RSSItem, playingCount: Int) {
         self.playingCount = playingCount
+        self.podcastTitle = rssItem.channel.title
+        self.titles = rssItem.channel.item.map { $0.title }
+        self.urls = rssItem.channel.item.map { $0.enclosure.url }
+        self.imageURLs = rssItem.channel.item.map { $0.image.href }
+        self.descriptions = rssItem.channel.item.map { $0.description }
     }
-    
     func updatePlayingCount() {
         self.playingCount -= 1
     }

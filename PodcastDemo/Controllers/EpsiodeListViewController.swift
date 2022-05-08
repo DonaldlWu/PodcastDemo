@@ -57,7 +57,7 @@ extension EpsiodeListViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let tableModel = tableModel else {
-            return UIImageView(image: UIImage(systemName: "xmark"))
+            return UIImageView()
         }
         let view = UIImageView()
         let url = URL(string: tableModel.channel.image[0].url)
@@ -88,17 +88,8 @@ extension EpsiodeListViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let tableModel = tableModel else { return }
-        let titles = tableModel.channel.item.map { $0.title }
-        let urls = tableModel.channel.item.map { $0.enclosure.url }
-        let imageURLs = tableModel.channel.item.map { $0.image.href }
-        let descriptions = tableModel.channel.item.map { $0.description }
-        // TODO: - Map function to control mapping model(only update when tableModel update)
 
-        let viewModel = RSSFeedViewModel(podcastTitle: tableModel.channel.title,
-                                         titles: titles,
-                                         urls: urls,
-                                         imageURLs: imageURLs,
-                                         descriptions: descriptions,
+        let viewModel = RSSFeedViewModel(rssItem: tableModel,
                                          playingCount: indexPath.row)
         let podDesVC = PodcastDescriptionViewController(viewModel: viewModel)
         show(podDesVC, sender: self)
