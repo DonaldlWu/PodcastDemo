@@ -119,6 +119,7 @@
 		C0A363B12827BB7D0004A4D4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C0A363A728256EBA0004A4D4 /* RSSFeedViewModel.swift */,
 				C0A363B22827BB920004A4D4 /* EpsiodeListViewModel.swift */,
 			);
 			path = ViewModel;
@@ -153,11 +154,10 @@
 		C0AD03C528218B59009728CA /* PodcastDemo */ = {
 			isa = PBXGroup;
 			children = (
-				C0A363B42827BBC30004A4D4 /* Composers */,
-				C0A363AE2827B6520004A4D4 /* Helpers */,
-				C0A363A728256EBA0004A4D4 /* RSSFeedViewModel.swift */,
 				C0D04D842822C4BF00764673 /* PlayerObject.swift */,
 				C0A363A228255AF00004A4D4 /* RSSLoader.swift */,
+				C0A363B42827BBC30004A4D4 /* Composers */,
+				C0A363AE2827B6520004A4D4 /* Helpers */,
 				C0D04D862822C53A00764673 /* Controllers */,
 				C0A3639E282539CB0004A4D4 /* Model */,
 				C0A363B12827BB7D0004A4D4 /* ViewModel */,
