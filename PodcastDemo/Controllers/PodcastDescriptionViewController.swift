@@ -68,7 +68,7 @@ class PodcastDescriptionViewController: UIViewController {
         let player = PlayerObject()
         let controller = PodcastPlayerViewController(viewModel: viewModel, player: player)
         
-        controller.onEpsiodeChange = { [weak self] result in
+        controller.onEpisodeChange = { [weak self] result in
             self?.configUIContent()
         }
 

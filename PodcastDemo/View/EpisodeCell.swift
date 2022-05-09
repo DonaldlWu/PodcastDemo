@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class EpsiodeCell: UITableViewCell {
+class EpisodeCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let lbl = UILabel()

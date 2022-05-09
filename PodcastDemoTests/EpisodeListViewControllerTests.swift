@@ -1,5 +1,5 @@
 //
-//  EpsiodeListViewControllerTests.swift
+//  EpisodeListViewControllerTests.swift
 //  PodcastDemoTests
 //
 //  Created by 吳得人 on 2022/5/8.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import PodcastDemo
 
-class EpsiodeListViewControllerTests: XCTestCase {
+class EpisodeListViewControllerTests: XCTestCase {
     
     func test_loadAction_requestListFromLoader() {
         let (sut, loader) = makeSUT()
@@ -40,9 +40,9 @@ class EpsiodeListViewControllerTests: XCTestCase {
     }
     
     // MARK: - Helpers
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: EpsiodeListViewController, loader: LoaderSpy) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: EpisodeListViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
-        let sut = EpsiodeListFeatureComposer.ListFeatureComposerWith(loader: loader)
+        let sut = EpisodeListFeatureComposer.ListFeatureComposerWith(loader: loader)
         return (sut, loader)
     }
     
@@ -62,7 +62,7 @@ class EpsiodeListViewControllerTests: XCTestCase {
     }
 }
 
-private extension EpsiodeListViewController {
+private extension EpisodeListViewController {
     func simulateUserTriggerReload() {
         refreshControl?.simulatePullToRefresh()
     }
@@ -78,7 +78,7 @@ private extension UIRefreshControl {
     }
 }
 
-private extension EpsiodeListViewController {
+private extension EpisodeListViewController {
     var isShowingLoadingIndicator: Bool {
         return refreshControl?.isRefreshing == true
     }

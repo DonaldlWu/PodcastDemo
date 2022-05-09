@@ -14,14 +14,14 @@
 		C0A3639D2825398B0004A4D4 /* XMLCoder in Frameworks */ = {isa = PBXBuildFile; productRef = C0A3639C2825398B0004A4D4 /* XMLCoder */; };
 		C0A363A128253A3C0004A4D4 /* RSSItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363A028253A3C0004A4D4 /* RSSItem.swift */; };
 		C0A363A328255AF00004A4D4 /* RSSLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363A228255AF00004A4D4 /* RSSLoader.swift */; };
-		C0A363A6282565DB0004A4D4 /* EpsiodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363A5282565DB0004A4D4 /* EpsiodeCell.swift */; };
+		C0A363A6282565DB0004A4D4 /* EpisodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363A5282565DB0004A4D4 /* EpisodeCell.swift */; };
 		C0A363A828256EBA0004A4D4 /* RSSFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363A728256EBA0004A4D4 /* RSSFeedViewModel.swift */; };
 		C0A363AA282790320004A4D4 /* ListRefreshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363A9282790320004A4D4 /* ListRefreshViewController.swift */; };
-		C0A363AD2827B1F40004A4D4 /* EpsiodeCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363AC2827B1F40004A4D4 /* EpsiodeCellController.swift */; };
+		C0A363AD2827B1F40004A4D4 /* EpisodeCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363AC2827B1F40004A4D4 /* EpisodeCellController.swift */; };
 		C0A363B02827B6600004A4D4 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363AF2827B6600004A4D4 /* String+Extension.swift */; };
-		C0A363B32827BB920004A4D4 /* EpsiodeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363B22827BB920004A4D4 /* EpsiodeListViewModel.swift */; };
-		C0A363B62827BBDF0004A4D4 /* EpsiodeListFeatureComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363B52827BBDF0004A4D4 /* EpsiodeListFeatureComposer.swift */; };
-		C0A363B82827C4050004A4D4 /* EpsiodeListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363B72827C4050004A4D4 /* EpsiodeListViewControllerTests.swift */; };
+		C0A363B32827BB920004A4D4 /* EpisodeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363B22827BB920004A4D4 /* EpisodeListViewModel.swift */; };
+		C0A363B62827BBDF0004A4D4 /* EpisodeListFeatureComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363B52827BBDF0004A4D4 /* EpisodeListFeatureComposer.swift */; };
+		C0A363B82827C4050004A4D4 /* EpisodeListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A363B72827C4050004A4D4 /* EpisodeListViewControllerTests.swift */; };
 		C0AD03C728218B59009728CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03C628218B59009728CA /* AppDelegate.swift */; };
 		C0AD03C928218B59009728CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03C828218B59009728CA /* SceneDelegate.swift */; };
 		C0AD03CB28218B59009728CA /* PodcastPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD03CA28218B59009728CA /* PodcastPlayerViewController.swift */; };
@@ -50,14 +50,14 @@
 		C0A36399282530910004A4D4 /* EpsiodeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpsiodeListViewController.swift; sourceTree = "<group>"; };
 		C0A363A028253A3C0004A4D4 /* RSSItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItem.swift; sourceTree = "<group>"; };
 		C0A363A228255AF00004A4D4 /* RSSLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSLoader.swift; sourceTree = "<group>"; };
-		C0A363A5282565DB0004A4D4 /* EpsiodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpsiodeCell.swift; sourceTree = "<group>"; };
+		C0A363A5282565DB0004A4D4 /* EpisodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeCell.swift; sourceTree = "<group>"; };
 		C0A363A728256EBA0004A4D4 /* RSSFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSFeedViewModel.swift; sourceTree = "<group>"; };
 		C0A363A9282790320004A4D4 /* ListRefreshViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRefreshViewController.swift; sourceTree = "<group>"; };
-		C0A363AC2827B1F40004A4D4 /* EpsiodeCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpsiodeCellController.swift; sourceTree = "<group>"; };
+		C0A363AC2827B1F40004A4D4 /* EpisodeCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeCellController.swift; sourceTree = "<group>"; };
 		C0A363AF2827B6600004A4D4 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		C0A363B22827BB920004A4D4 /* EpsiodeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpsiodeListViewModel.swift; sourceTree = "<group>"; };
-		C0A363B52827BBDF0004A4D4 /* EpsiodeListFeatureComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpsiodeListFeatureComposer.swift; sourceTree = "<group>"; };
-		C0A363B72827C4050004A4D4 /* EpsiodeListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpsiodeListViewControllerTests.swift; sourceTree = "<group>"; };
+		C0A363B22827BB920004A4D4 /* EpisodeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeListViewModel.swift; sourceTree = "<group>"; };
+		C0A363B52827BBDF0004A4D4 /* EpisodeListFeatureComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeListFeatureComposer.swift; sourceTree = "<group>"; };
+		C0A363B72827C4050004A4D4 /* EpisodeListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeListViewControllerTests.swift; sourceTree = "<group>"; };
 		C0AD03C328218B59009728CA /* PodcastDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodcastDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0AD03C628218B59009728CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0AD03C828218B59009728CA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 		C0A363A4282565B20004A4D4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C0A363A5282565DB0004A4D4 /* EpsiodeCell.swift */,
+				C0A363A5282565DB0004A4D4 /* EpisodeCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -133,7 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				C0A363A728256EBA0004A4D4 /* RSSFeedViewModel.swift */,
-				C0A363B22827BB920004A4D4 /* EpsiodeListViewModel.swift */,
+				C0A363B22827BB920004A4D4 /* EpisodeListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -141,7 +141,7 @@
 		C0A363B42827BBC30004A4D4 /* Composers */ = {
 			isa = PBXGroup;
 			children = (
-				C0A363B52827BBDF0004A4D4 /* EpsiodeListFeatureComposer.swift */,
+				C0A363B52827BBDF0004A4D4 /* EpisodeListFeatureComposer.swift */,
 			);
 			path = Composers;
 			sourceTree = "<group>";
@@ -188,7 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				C068B0F928284E2900C7C02A /* Helpers */,
-				C0A363B72827C4050004A4D4 /* EpsiodeListViewControllerTests.swift */,
+				C0A363B72827C4050004A4D4 /* EpisodeListViewControllerTests.swift */,
 				C0AD03DD28218B5A009728CA /* PodcastPlayerViewControllerTests.swift */,
 			);
 			path = PodcastDemoTests;
@@ -199,7 +199,7 @@
 			children = (
 				C0A36399282530910004A4D4 /* EpsiodeListViewController.swift */,
 				C0A363A9282790320004A4D4 /* ListRefreshViewController.swift */,
-				C0A363AC2827B1F40004A4D4 /* EpsiodeCellController.swift */,
+				C0A363AC2827B1F40004A4D4 /* EpisodeCellController.swift */,
 				C00963532824206500A9F45A /* PodcastDescriptionViewController.swift */,
 				C0AD03CA28218B59009728CA /* PodcastPlayerViewController.swift */,
 			);
@@ -317,8 +317,8 @@
 			files = (
 				C0A363AA282790320004A4D4 /* ListRefreshViewController.swift in Sources */,
 				C0AD03CB28218B59009728CA /* PodcastPlayerViewController.swift in Sources */,
-				C0A363B62827BBDF0004A4D4 /* EpsiodeListFeatureComposer.swift in Sources */,
-				C0A363B32827BB920004A4D4 /* EpsiodeListViewModel.swift in Sources */,
+				C0A363B62827BBDF0004A4D4 /* EpisodeListFeatureComposer.swift in Sources */,
+				C0A363B32827BB920004A4D4 /* EpisodeListViewModel.swift in Sources */,
 				C0A363A328255AF00004A4D4 /* RSSLoader.swift in Sources */,
 				C0D04D852822C4BF00764673 /* PlayerObject.swift in Sources */,
 				C00963542824206500A9F45A /* PodcastDescriptionViewController.swift in Sources */,
@@ -326,11 +326,11 @@
 				C0D4F7262827E01E00247FF1 /* urlObject.m in Sources */,
 				C0A363B02827B6600004A4D4 /* String+Extension.swift in Sources */,
 				C0AD03C728218B59009728CA /* AppDelegate.swift in Sources */,
-				C0A363A6282565DB0004A4D4 /* EpsiodeCell.swift in Sources */,
+				C0A363A6282565DB0004A4D4 /* EpisodeCell.swift in Sources */,
 				C0A363A828256EBA0004A4D4 /* RSSFeedViewModel.swift in Sources */,
 				C0A3639A282530910004A4D4 /* EpsiodeListViewController.swift in Sources */,
 				C0AD03C928218B59009728CA /* SceneDelegate.swift in Sources */,
-				C0A363AD2827B1F40004A4D4 /* EpsiodeCellController.swift in Sources */,
+				C0A363AD2827B1F40004A4D4 /* EpisodeCellController.swift in Sources */,
 				C068B0F828280B7300C7C02A /* CMTime+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,7 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C068B0FB28284E4000C7C02A /* MockItem+XCTestCase.swift in Sources */,
-				C0A363B82827C4050004A4D4 /* EpsiodeListViewControllerTests.swift in Sources */,
+				C0A363B82827C4050004A4D4 /* EpisodeListViewControllerTests.swift in Sources */,
 				C0AD03DE28218B5A009728CA /* PodcastPlayerViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,24 +1,24 @@
 //
-//  EpsiodeListFeatureComposer.swift
+//  EpisodeListFeatureComposer.swift
 //  PodcastDemo
 //
 //  Created by 吳得人 on 2022/5/8.
 //
 
-final class EpsiodeListFeatureComposer {
+final class EpisodeListFeatureComposer {
     private init() {}
     
-    static func ListFeatureComposerWith(loader: RSSFeedLoader) -> EpsiodeListViewController {
-        let viewModel = EpsiodeListViewModel(loader: MainQueueDispatchDecorator(decoratee: loader))
+    static func ListFeatureComposerWith(loader: RSSFeedLoader) -> EpisodeListViewController {
+        let viewModel = EpisodeListViewModel(loader: MainQueueDispatchDecorator(decoratee: loader))
         let refreshController = ListRefreshViewController(viewModel: viewModel)
-        let epsiodeViewController = EpsiodeListViewController(refreshController: refreshController)
+        let episodeViewController = EpisodeListViewController(refreshController: refreshController)
         viewModel.onRSSLoaded = { rss in
-            epsiodeViewController.tableModel = rss
+            episodeViewController.tableModel = rss
             let ocObject = urlObject.init()
             ocObject.url = rss.channel.image[0].url
-            epsiodeViewController.titleImageURL = ocObject
+            episodeViewController.titleImageURL = ocObject
         }
-        return epsiodeViewController
+        return episodeViewController
     }
 }
 

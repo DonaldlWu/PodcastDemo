@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class EpsiodeListViewController: UITableViewController {
+class EpisodeListViewController: UITableViewController {
     private var refreshController: ListRefreshViewController?
     var titleImageURL: urlObject?
     var tableModel: RSSItem? {
@@ -40,7 +40,7 @@ class EpsiodeListViewController: UITableViewController {
     
     private func configTableView() {
         tableView.separatorStyle = .none
-        tableView.register(EpsiodeCell.self, forCellReuseIdentifier: "cellId")
+        tableView.register(EpisodeCell.self, forCellReuseIdentifier: "cellId")
     }
     
     private func configRefreshControl() {
@@ -49,7 +49,7 @@ class EpsiodeListViewController: UITableViewController {
     }
 }
 
-extension EpsiodeListViewController {
+extension EpisodeListViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let object = titleImageURL, let url = URL(string: object.url) else {
@@ -77,7 +77,7 @@ extension EpsiodeListViewController {
             return UITableViewCell()
         }
         let model = tableModel.channel.item[indexPath.row]
-        let cellController = EpsiodeCellController(model: model)
+        let cellController = EpisodeCellController(model: model)
         return cellController.view(in: tableView)
     }
     

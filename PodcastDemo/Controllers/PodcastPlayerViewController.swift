@@ -11,7 +11,7 @@ import Kingfisher
 class PodcastPlayerViewController: UIViewController {
     private var viewModel: RSSFeedViewModel?
     private var player: PlayerObject?
-    var onEpsiodeChange: ((Bool) -> Void)?
+    var onEpisodeChange: ((Bool) -> Void)?
     
     // MARK: - UI element
     lazy var pausePlayButton: UIButton = {
@@ -151,7 +151,7 @@ class PodcastPlayerViewController: UIViewController {
         
         // Receiving event when Ep is ready to play
         player.onPlayerReady = { [weak self] isReady in
-            self?.onEpsiodeChange?(true)
+            self?.onEpisodeChange?(true)
             self?.configUIWhenPlayerReady()
             self?.navigationItem.setHidesBackButton(false, animated: true)
         }

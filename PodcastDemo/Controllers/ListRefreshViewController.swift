@@ -10,9 +10,9 @@ import UIKit
 final class ListRefreshViewController: NSObject {
     private(set) lazy var view = binded(UIRefreshControl())
     
-    private let viewModel: EpsiodeListViewModel
+    private let viewModel: EpisodeListViewModel
     
-    init(viewModel: EpsiodeListViewModel) {
+    init(viewModel: EpisodeListViewModel) {
         self.viewModel = viewModel
     }
     

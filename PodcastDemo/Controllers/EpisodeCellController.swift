@@ -8,15 +8,15 @@
 import UIKit
 import Foundation
 
-final class EpsiodeCellController {
+final class EpisodeCellController {
     private var model: Item
     
     init(model: Item) {
         self.model = model
     }
     
-    func view(in tableView: UITableView) -> EpsiodeCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId") as! EpsiodeCell
+    func view(in tableView: UITableView) -> EpisodeCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId") as! EpisodeCell
         cell.titleLabel.text = model.title
         cell.pubDateLabel.text = model.pubDate.convertDateStringForReadibility
         

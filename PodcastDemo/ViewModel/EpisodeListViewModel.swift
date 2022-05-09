@@ -6,7 +6,7 @@
 //
 
 
-final class EpsiodeListViewModel {
+final class EpisodeListViewModel {
     private let loader: RSSFeedLoader
     
     init(loader: RSSFeedLoader) {
@@ -17,7 +17,7 @@ final class EpsiodeListViewModel {
         didSet { onChange?(self) }
     }
     
-    var onChange: ((EpsiodeListViewModel) -> Void)?
+    var onChange: ((EpisodeListViewModel) -> Void)?
     var onRSSLoaded: ((RSSItem) -> Void)?
     
     func loadRssFeed() {
