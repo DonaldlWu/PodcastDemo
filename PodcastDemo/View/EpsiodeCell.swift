@@ -83,6 +83,10 @@ class EpsiodeCell: UITableViewCell {
         }
     }
     
+    override func prepareForReuse() {
+        epImageView.image = nil
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

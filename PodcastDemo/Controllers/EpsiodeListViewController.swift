@@ -40,6 +40,7 @@ class EpsiodeListViewController: UITableViewController {
     
     private func configTableView() {
         tableView.separatorStyle = .none
+        tableView.register(EpsiodeCell.self, forCellReuseIdentifier: "cellId")
     }
     
     private func configRefreshControl() {
@@ -77,7 +78,7 @@ extension EpsiodeListViewController {
         }
         let model = tableModel.channel.item[indexPath.row]
         let cellController = EpsiodeCellController(model: model)
-        return cellController.view()
+        return cellController.view(in: tableView)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
