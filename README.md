@@ -55,6 +55,10 @@ Third part framework
 
 - UIKit and programming UI layout.
 
+- Development env: XCode 13.1 RC 
+
+- iOD Development Target: iOS 15
+
 # Implementation
 
 ## Code typesetting
