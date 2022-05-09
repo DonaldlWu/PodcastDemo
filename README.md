@@ -27,11 +27,15 @@ Separate the feature to three part
 
     - Refresh to reload RSS feed
 
+    - Show description page
+
 2. Description
 
     - A header with current epsiode image.
 
     - A section of text to display description of current epsiode.
+
+    - Show player page
 
 3. Player
 
