@@ -9,7 +9,7 @@ final class EpsiodeListFeatureComposer {
     private init() {}
     
     static func ListFeatureComposerWith(loader: RSSFeedLoader) -> EpsiodeListViewController {
-        let viewModel = EpsiodeListViewModel(loader: loader)
+        let viewModel = EpsiodeListViewModel(loader: MainQueueDispatchDecorator(decoratee: loader))
         let refreshController = ListRefreshViewController(viewModel: viewModel)
         let epsiodeViewController = EpsiodeListViewController(refreshController: refreshController)
         viewModel.onRSSLoaded = { rss in
@@ -18,7 +18,27 @@ final class EpsiodeListFeatureComposer {
             ocObject.url = rss.channel.image[0].url
             epsiodeViewController.titleImageURL = ocObject
         }
-        
         return epsiodeViewController
+    }
+}
+
+private final class MainQueueDispatchDecorator: RSSFeedLoader {
+    private let decoratee: RSSFeedLoader
+    
+    init(decoratee: RSSFeedLoader) {
+        self.decoratee = decoratee
+    }
+    
+    func load(completion: @escaping (RSSLoadResult) -> Void) {
+        decoratee.load { result in
+            if Thread.isMainThread {
+                completion(result)
+            } else {
+                DispatchQueue.main.async {
+                    completion(result)
+                }
+            }
+            
+        }
     }
 }

@@ -17,23 +17,12 @@ class PodcastPlayerViewControllerTests: XCTestCase {
     
     // MARK: - Helpers
     private func makeSUT() -> PodcastPlayerViewController {
-        let viewModel = RSSFeedViewModel(rssItem: mockRSSItem(),
+        let viewModel = RSSFeedViewModel(rssItem: MockRSSItem(),
                                          playingCount: 0)
         let player = PlayerObject()
         let sut = PodcastPlayerViewController(viewModel: viewModel, player: player)
         trackForMemoryLeaks(sut)
         return sut
-    }
-    
-    private func mockRSSItem() -> RSSItem {
-        return RSSItem(channel: Channel(title: "Test Title",
-                                        image: [ChannelImage(url: "Test Image url")],
-                                        description: "Test Des",
-                                        item: [Item(title: "Item Title",
-                                                    pubDate: "date",
-                                                    description: "des",
-                                                    enclosure: Enclosure(url: "url"),
-                                                    image: ItemImage(href: "href"))]))
     }
     
     func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #file, line: UInt = #line) {

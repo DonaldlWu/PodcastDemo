@@ -23,23 +23,12 @@ final class ListRefreshViewController: NSObject {
     private func binded(_ view: UIRefreshControl) -> UIRefreshControl {
         viewModel.onChange = { [weak self] viewModel in
             if viewModel.isLoading {
-                self?.refreshControlAction(with: true)
+                self?.view.beginRefreshing()
             } else {
-                self?.refreshControlAction(with: false)
+                self?.view.endRefreshing()
             }
         }
         view.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return view
-    }
-    
-    private func refreshControlAction(with value: Bool) {
-        DispatchQueue.main.async {
-            switch value {
-            case true:
-                self.view.beginRefreshing()
-            case false:
-                self.view.endRefreshing()
-            }
-        }
     }
 }

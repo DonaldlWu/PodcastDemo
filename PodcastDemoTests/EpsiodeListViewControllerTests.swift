@@ -22,6 +22,23 @@ class EpsiodeListViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadCallCount, 2, "Expected another loading request once user trigger a load")
     }
     
+    func test_viewDidLoad_showLoadingIndicator() {
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is loaded")
+        
+        let item = MockRSSItem()
+        loader.completeListLoading(with: item, at: 0)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading is completes successfully")
+        
+        sut.simulateUserTriggerReload()
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator shows when user trigger a reload")
+    
+        loader.completeListLoading(with: item, at: 1)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user triggered loading is completes with error")
+    }
+    
     // MARK: - Helpers
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: EpsiodeListViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
@@ -37,6 +54,10 @@ class EpsiodeListViewControllerTests: XCTestCase {
         
         func load(completion: @escaping ((RSSLoadResult)) -> Void) {
             completions.append(completion)
+        }
+        
+        func completeListLoading(with item: RSSItem, at index: Int) {
+            completions[index](.success(item))
         }
     }
 }
@@ -54,6 +75,12 @@ private extension UIRefreshControl {
                 (target as NSObject).perform(Selector($0))
             }
         }
+    }
+}
+
+private extension EpsiodeListViewController {
+    var isShowingLoadingIndicator: Bool {
+        return refreshControl?.isRefreshing == true
     }
 }
 

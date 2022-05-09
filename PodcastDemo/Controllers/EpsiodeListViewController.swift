@@ -13,9 +13,7 @@ class EpsiodeListViewController: UITableViewController {
     var titleImageURL: urlObject?
     var tableModel: RSSItem? {
         didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            tableView.reloadData()
         }
     }
     
